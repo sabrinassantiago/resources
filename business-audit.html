@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Freelance Business Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --red: #a70101;
+    --black: #1a1a1a;
+    --white: #ffffff;
+    --cream: #f7f4f0;
+    --cream-dark: #ede9e3;
+    --gray: #c8c2ba;
+    --green: #2d5016;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--black);
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--white);
+    border-bottom: 8px solid var(--black);
+    padding: 80px 40px 60px;
+  }
+
+  .header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(42px, 7vw, 72px);
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+
+  .title em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  .intro {
+    font-size: 16px;
+    color: #6b6560;
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .score-box {
+    background: var(--black);
+    color: var(--white);
+    padding: 24px 32px;
+    display: inline-block;
+  }
+
+  .score-box-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+
+  .score-box-number {
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px;
+    line-height: 1;
+  }
+
+  .score-box-number span {
+    color: var(--gray);
+    font-size: 32px;
+  }
+
+  /* MAIN CONTENT */
+  .content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* INSTRUCTIONS */
+  .instructions {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 40px;
+    margin-bottom: 60px;
+  }
+
+  .instructions h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+
+  .instructions p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #3a3430;
+    margin-bottom: 12px;
+  }
+
+  .instructions p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* CATEGORY */
+  .category {
+    margin-bottom: 48px;
+  }
+
+  .category-header {
+    background: var(--black);
+    color: var(--white);
+    padding: 24px 32px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .category-title-group {
+    flex: 1;
+  }
+
+  .category-number {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 14px;
+    opacity: 0.6;
+    margin-bottom: 4px;
+  }
+
+  .category-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px;
+    line-height: 1.1;
+    font-weight: 400;
+  }
+
+  .category-score {
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px;
+    opacity: 0.3;
+    min-width: 80px;
+    text-align: right;
+  }
+
+  /* QUESTIONS */
+  .question {
+    background: var(--white);
+    border: 2px solid var(--cream-dark);
+    padding: 28px 32px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .question:hover {
+    border-color: var(--black);
+    transform: translateX(4px);
+  }
+
+  .question.answered-yes {
+    border-color: var(--green);
+    background: #f0f4ed;
+  }
+
+  .question.answered-no {
+    border-color: var(--red);
+    background: #fdf5f5;
+  }
+
+  .question-text {
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: var(--black);
+  }
+
+  .question-buttons {
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    padding: 10px 24px;
+    border: 2px solid var(--black);
+    background: var(--white);
+    color: var(--black);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .btn:hover {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .btn-yes {
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  .btn-yes:hover,
+  .btn-yes.active {
+    background: var(--green);
+    color: var(--white);
+  }
+
+  .btn-no {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .btn-no:hover,
+  .btn-no.active {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  .question-why {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--cream-dark);
+    font-size: 14px;
+    line-height: 1.7;
+    color: #4a4440;
+    display: none;
+  }
+
+  .question.answered-no .question-why {
+    display: block;
+  }
+
+  .question-why strong {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  /* RESULTS */
+  .results {
+    background: var(--black);
+    color: var(--white);
+    padding: 60px 40px;
+    margin-top: 60px;
+    display: none;
+  }
+
+  .results.show {
+    display: block;
+  }
+
+  .results-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .results h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px;
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+
+  .results-score {
+    font-family: 'Instrument Serif', serif;
+    font-size: 120px;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .results-score span {
+    font-size: 64px;
+    opacity: 0.5;
+  }
+
+  .results-label {
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 32px;
+  }
+
+  .results-message {
+    font-size: 18px;
+    line-height: 1.7;
+    opacity: 0.9;
+    margin-bottom: 40px;
+  }
+
+  .results-breakdown {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .breakdown-item {
+    text-align: left;
+    padding: 24px;
+    background: rgba(255,255,255,0.05);
+    border-left: 3px solid var(--red);
+  }
+
+  .breakdown-item h4 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 8px;
+  }
+
+  .breakdown-item .breakdown-score {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px;
+    margin-bottom: 8px;
+  }
+
+  .breakdown-item .breakdown-score span {
+    font-size: 20px;
+    opacity: 0.5;
+  }
+
+  .breakdown-item p {
+    font-size: 13px;
+    opacity: 0.8;
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--white);
+    padding: 60px 40px;
+    text-align: center;
+    border-top: 2px solid var(--cream-dark);
+  }
+
+  .footer p {
+    font-size: 14px;
+    color: #6b6560;
+    max-width: 600px;
+    margin: 0 auto 20px;
+    line-height: 1.7;
+  }
+
+  .footer-link {
+    display: inline-block;
+    background: var(--red);
+    color: var(--white);
+    padding: 14px 32px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    transition: background 0.2s ease;
+  }
+
+  .footer-link:hover {
+    background: #8b0101;
+  }
+
+  .download-btn {
+    display: inline-block;
+    background: var(--white);
+    color: var(--black);
+    border: 2px solid var(--white);
+    padding: 14px 32px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    margin-top: 24px;
+  }
+
+  .download-btn:hover {
+    background: transparent;
+    color: var(--white);
+  }
+
+  /* PRINT STYLES */
+  @media print {
+    body {
+      background: white;
+    }
+
+    .header,
+    .instructions,
+    .footer {
+      display: none;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .question-buttons {
+      display: none;
+    }
+
+    .question.answered-yes::after {
+      content: "✓ YES";
+      display: block;
+      margin-top: 12px;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--green);
+    }
+
+    .question.answered-no::after {
+      content: "✗ NO";
+      display: block;
+      margin-top: 12px;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--red);
+    }
+
+    .question {
+      page-break-inside: avoid;
+    }
+
+    .category {
+      page-break-inside: avoid;
+    }
+
+    .results {
+      display: block !important;
+      page-break-before: always;
+      background: white;
+      color: black;
+      padding: 20px;
+    }
+
+    .results-breakdown {
+      page-break-inside: avoid;
+    }
+
+    .download-btn {
+      display: none;
+    }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .header {
+      padding: 60px 24px 40px;
+    }
+
+    .content {
+      padding: 40px 24px 80px;
+    }
+
+    .category-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .category-title {
+      font-size: 28px;
+    }
+
+    .question {
+      padding: 24px;
+    }
+
+    .question-text {
+      font-size: 16px;
+    }
+
+    .results {
+      padding: 40px 24px;
+    }
+
+    .results h2 {
+      font-size: 36px;
+    }
+
+    .results-score {
+      font-size: 80px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="eyebrow">Freelance Business Health Check</div>
+    <h1 class="title">The Business <em>Audit</em></h1>
+    <p class="intro">Most freelancers could make 50% more money next year by changing absolutely nothing about their skills and everything about how they run their business. This audit finds what is broken.</p>
+    <div class="score-box">
+      <div class="score-box-label">Your Score</div>
+      <div class="score-box-number"><span id="headerScore">0</span><span>/42</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="instructions">
+    <h3>How This Works</h3>
+    <p>Answer honestly. Every no is a problem you can fix. Every yes is something you are doing right.</p>
+    <p>Your score updates as you go. At the end, you will see exactly where your business is broken and what to fix first.</p>
+    <p>This takes about 10 minutes if you are honest with yourself. Do not skip questions just because the answer makes you uncomfortable.</p>
+  </div>
+
+  <!-- CATEGORY 1: OPERATIONS & SYSTEMS -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-title-group">
+        <div class="category-number">Category 01</div>
+        <h2 class="category-title">Operations & Systems</h2>
+      </div>
+      <div class="category-score"><span class="cat-score" data-category="1">0</span>/7</div>
+    </div>
+
+    <div class="question" data-category="1">
+      <div class="question-text">Do you have a written process for how you onboard new clients?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Without a documented process, you reinvent the wheel every time. You forget steps, clients get confused, and onboarding takes twice as long. A written process means every client gets the same smooth experience and you stop wasting time.
+      </div>
+    </div>
+
+    <div class="question" data-category="1">
+      <div class="question-text">Do you have templates for proposals, contracts, and invoices?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Starting from scratch every time is killing your hourly rate. Templates save hours per project and make sure you never forget important clauses or details. If you are rewriting your contract for every client, you are working for free.
+      </div>
+    </div>
+
+    <div class="question" data-category="1">
+      <div class="question-text">Is anything in your business automated (invoices, reminders, file delivery)?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Manual tasks add up fast. Sending invoices, chasing payments, delivering files, sending reminders. If you are doing any of this by hand every time, you are losing billable hours to admin work that could run itself.
+      </div>
+    </div>
+
+    <div class="question" data-category="1">
+      <div class="question-text">Can someone else understand how your business works without asking you?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        If everything lives in your head, your business can not scale and you can not take a break. Documentation means you could hire help, take vacation, or sell your business someday. Right now you are the single point of failure.
+      </div>
+    </div>
+
+    <div class="question" data-category="1">
+      <div class="question-text">Do you have a system for tracking project status and deadlines?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Relying on memory or scattered notes means missed deadlines and dropped balls. A real system shows you what is due, what is waiting on the client, and what is at risk. Without it, you are always one forgotten task away from a disaster.
+      </div>
+    </div>
+
+    <div class="question" data-category="1">
+      <div class="question-text">Do you keep client files and assets organized in a way you can find them later?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Digging through your desktop or downloads folder for 20 minutes every time you need a file is unprofessional and wastes time. A clear folder structure and naming convention means you find things in seconds, not hours.
+      </div>
+    </div>
+
+    <div class="question" data-category="1">
+      <div class="question-text">Do you back up your work regularly and know you could recover it if your computer died?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        One hard drive failure and you could lose years of client work, invoices, contracts, and portfolio pieces. Cloud backup or external drives are cheap insurance. Not having backups is gambling with your entire business.
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 2: FINANCIAL HEALTH -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-title-group">
+        <div class="category-number">Category 02</div>
+        <h2 class="category-title">Financial Health</h2>
+      </div>
+      <div class="category-score"><span class="cat-score" data-category="2">0</span>/8</div>
+    </div>
+
+    <div class="question" data-category="2">
+      <div class="question-text">Do you know your actual monthly expenses (business and personal)?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        If you do not know what you spend, you do not know what you need to earn. You are flying blind. Tracking expenses shows you your minimum monthly income target and reveals where money is leaking. You can not price correctly without this number.
+      </div>
+    </div>
+
+    <div class="question" data-category="2">
+      <div class="question-text">Do you have at least 3 months of expenses saved as an emergency fund?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Freelance income is unpredictable. Without savings, one slow month becomes a crisis. You take bad clients out of desperation, you can not negotiate rates, and you live in constant stress. An emergency fund gives you power to say no and wait for good work.
+      </div>
+    </div>
+
+    <div class="question" data-category="2">
+      <div class="question-text">Do you set aside money for taxes every time you get paid?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        The tax bill is coming whether you are ready or not. Spending all your income means scrambling to pay taxes later or going into debt. Put 20-30% in a separate account immediately. Treat it like money that is already gone because it is.
+      </div>
+    </div>
+
+    <div class="question" data-category="2">
+      <div class="question-text">Do you track every project to see if it was actually profitable after you factor in your time?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        A $5000 project that takes 100 hours is worse than a $2000 project that takes 20 hours. Without tracking time, you do not know which clients are profitable and which are draining you. You keep taking bad work because the total looks good.
+      </div>
+    </div>
+
+    <div class="question" data-category="2">
+      <div class="question-text">Can you explain your pricing and defend why you charge what you charge?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        If you can not justify your rates, you will cave the first time a client questions them. Confident pricing comes from knowing your costs, your value, and your worth. Pulling numbers out of thin air makes you look amateur and feel defensive.
+      </div>
+    </div>
+
+    <div class="question" data-category="2">
+      <div class="question-text">Do you review your rates at least once a year and raise them when appropriate?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Your skills improve, your expenses go up, inflation happens. Charging the same rate for years means you are making less in real terms. Annual rate reviews should be standard. If you have not raised rates in over a year, you are leaving money on the table.
+      </div>
+    </div>
+
+    <div class="question" data-category="2">
+      <div class="question-text">Do you know which clients or project types make you the most money per hour?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Not all clients are created equal. Some pay well and are easy to work with. Others pay the same but take triple the time. If you do not track this, you can not make strategic decisions about which work to pursue and which to turn down.
+      </div>
+    </div>
+
+    <div class="question" data-category="2">
+      <div class="question-text">Do you have a business bank account separate from your personal account?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Mixing business and personal money makes it impossible to see how your business is actually performing. You can not track profit, expenses, or cash flow accurately. Separate accounts make taxes easier and show you the real financial health of your business.
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 3: CLIENT MANAGEMENT -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-title-group">
+        <div class="category-number">Category 03</div>
+        <h2 class="category-title">Client Management</h2>
+      </div>
+      <div class="category-score"><span class="cat-score" data-category="3">0</span>/7</div>
+    </div>
+
+    <div class="question" data-category="3">
+      <div class="question-text">Do you have a written contract for every client project?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        No contract means no protection. Clients can change scope, delay payment, or disappear and you have no recourse. Even a basic contract is better than a handshake. Working without one is gambling that nothing will go wrong. Eventually something will.
+      </div>
+    </div>
+
+    <div class="question" data-category="3">
+      <div class="question-text">Do you qualify clients before saying yes (budget, timeline, fit)?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Saying yes to everyone means saying yes to nightmare clients. Qualifying up front filters out people who can not afford you, need it done yesterday, or are a bad personality fit. Screening saves you from projects that will make you miserable.
+      </div>
+    </div>
+
+    <div class="question" data-category="3">
+      <div class="question-text">Do you get at least a deposit before starting work on any project?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Clients who balk at a deposit are not serious. A 50% deposit proves they are committed and protects you if they ghost mid project. No deposit means you are doing free work on spec hoping they pay later. That is not a business, that is charity.
+      </div>
+    </div>
+
+    <div class="question" data-category="3">
+      <div class="question-text">Do you set clear boundaries around communication (hours, channels, response time)?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Without boundaries, clients will text you at 11pm and expect instant responses. You are always on call, always anxious, and never off the clock. Clear communication rules protect your time and sanity. Clients respect boundaries when you set them up front.
+      </div>
+    </div>
+
+    <div class="question" data-category="3">
+      <div class="question-text">Do you have a process for handling scope creep or out of scope requests?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Just one more thing kills profitability. Without a scope process, you say yes to everything and triple your workload for the same price. You need a clear way to identify out of scope work, explain it to the client, and charge accordingly.
+      </div>
+    </div>
+
+    <div class="question" data-category="3">
+      <div class="question-text">Do you track client payment history and know who pays on time vs who is always late?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Some clients are chronically late. If you are not tracking this, you keep accepting work from people who wreck your cash flow. Payment history should inform whether you take repeat work, shorten payment terms, or require deposits up front.
+      </div>
+    </div>
+
+    <div class="question" data-category="3">
+      <div class="question-text">Can you fire a client if the relationship is not working?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        If you are too scared to fire bad clients, you are stuck with them forever. Financial runway and a full pipeline give you the power to walk away from work that makes you miserable. Build your business until you CAN fire people, then actually do it when needed.
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 4: TIME & PRODUCTIVITY -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-title-group">
+        <div class="category-number">Category 04</div>
+        <h2 class="category-title">Time & Productivity</h2>
+      </div>
+      <div class="category-score"><span class="cat-score" data-category="4">0</span>/6</div>
+    </div>
+
+    <div class="question" data-category="4">
+      <div class="question-text">Do you block time every week specifically to work ON your business (not in it)?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Working in your business is client work. Working on your business is systems, strategy, marketing, finances. If you are always heads down on deliverables, your business never improves. Block 3-5 hours a week minimum for business development or you will stay stuck.
+      </div>
+    </div>
+
+    <div class="question" data-category="4">
+      <div class="question-text">Do you track your time to know how long tasks actually take?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Guessing how long things take means bad estimates and unprofitable projects. Time tracking shows you where hours disappear, which tasks take longer than expected, and how to price more accurately. You can not improve what you do not measure.
+      </div>
+    </div>
+
+    <div class="question" data-category="4">
+      <div class="question-text">Do you have set working hours that you stick to most of the time?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Freelancing does not mean working whenever you feel like it. It means working when you said you would. No schedule means no boundaries, inconsistent output, and burnout. Set hours create structure, make you more productive, and let you actually have a life.
+      </div>
+    </div>
+
+    <div class="question" data-category="4">
+      <div class="question-text">Can you take a full day off without checking email or worrying about work?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        If you can not disconnect, your business owns you. Real rest requires actually resting. Systems, boundaries, and buffer time make it possible to take days off without everything falling apart. If one day off causes chaos, your business is too fragile.
+      </div>
+    </div>
+
+    <div class="question" data-category="4">
+      <div class="question-text">Do you batch similar tasks instead of context switching all day?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Jumping between tasks kills productivity. Every switch costs focus and time. Batching similar work (all emails at once, all admin at once, all creative at once) keeps you in flow state longer and gets more done in less time.
+      </div>
+    </div>
+
+    <div class="question" data-category="4">
+      <div class="question-text">Do you know your most productive hours and protect them for deep work?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        You are not equally productive all day. Most people have 3-4 peak hours. Using those hours for email or meetings is wasting your best energy on low value tasks. Save deep work for peak hours and schedule everything else around it.
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 5: BUSINESS STRATEGY -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-title-group">
+        <div class="category-number">Category 05</div>
+        <h2 class="category-title">Business Strategy</h2>
+      </div>
+      <div class="category-score"><span class="cat-score" data-category="5">0</span>/7</div>
+    </div>
+
+    <div class="question" data-category="5">
+      <div class="question-text">Do you know what you want your business to look like in one year?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        If you do not know where you are going, every client looks like the right move. A clear vision helps you make strategic decisions about rates, services, and clients. Without goals, you are just reacting to whatever comes your way.
+      </div>
+    </div>
+
+    <div class="question" data-category="5">
+      <div class="question-text">Do you have a specific niche or ideal client type you focus on?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Generalists compete on price. Specialists compete on expertise. A niche makes you more valuable, easier to refer, and able to charge more. Saying you do everything for everyone means you are forgettable and replaceable.
+      </div>
+    </div>
+
+    <div class="question" data-category="5">
+      <div class="question-text">Can you explain what makes your service different or better than competitors?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        If you can not articulate your value, clients will not see it either. Your differentiator is what justifies your rates and makes people choose you over cheaper options. I do good work is not a differentiator. Everyone says that.
+      </div>
+    </div>
+
+    <div class="question" data-category="5">
+      <div class="question-text">Do you regularly turn down work that is not a good fit?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Saying yes to everything means saying yes to bad clients, underpriced work, and projects outside your expertise. Strategic nos protect your time for better opportunities. If you never turn down work, you are probably undercharging or desperate.
+      </div>
+    </div>
+
+    <div class="question" data-category="5">
+      <div class="question-text">Do you have a plan for growing your income beyond trading time for money?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        There are only so many hours in a week. To grow past a certain point, you need leverage. Products, retainers, team members, higher rates, or more efficient systems. If your only plan is work more hours, you hit a ceiling fast.
+      </div>
+    </div>
+
+    <div class="question" data-category="5">
+      <div class="question-text">Do you know who your best clients are and actively try to get more like them?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Not all revenue is good revenue. Some clients pay well, communicate clearly, and respect your time. Others are a nightmare at any price. Identify your best clients and build your marketing and positioning to attract more of them specifically.
+      </div>
+    </div>
+
+    <div class="question" data-category="5">
+      <div class="question-text">Do you review your business performance quarterly to see what is working?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Flying blind means repeating mistakes and missing opportunities. Quarterly reviews show you which services are profitable, which clients are worth keeping, and where to focus next. Without regular check ins, you just keep doing what you have always done.
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 6: MARKETING & SALES -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-title-group">
+        <div class="category-number">Category 06</div>
+        <h2 class="category-title">Marketing & Sales</h2>
+      </div>
+      <div class="category-score"><span class="cat-score" data-category="6">0</span>/7</div>
+    </div>
+
+    <div class="question" data-category="6">
+      <div class="question-text">Do you have a portfolio that shows your best work and results?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Without a portfolio, prospects can not see what you are capable of. Your portfolio is proof you can do what you say you can do. No portfolio means you are asking clients to take a blind leap of faith. Most will not.
+      </div>
+    </div>
+
+    <div class="question" data-category="6">
+      <div class="question-text">Do you actively ask happy clients for referrals or testimonials?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Referrals are the highest quality leads and they close faster. If you are not asking, you are leaving money on the table. Most happy clients will gladly refer you but they will not think to do it unless you ask. Make it easy for them.
+      </div>
+    </div>
+
+    <div class="question" data-category="6">
+      <div class="question-text">Do you have a consistent way of staying in touch with past clients?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Past clients forget about you the second the project ends. Staying in touch keeps you top of mind for repeat work and referrals. A simple email every few months or sharing relevant content is enough. Out of sight means out of mind.
+      </div>
+    </div>
+
+    <div class="question" data-category="6">
+      <div class="question-text">Do you have a clear process for following up with leads who do not respond?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        Most deals are lost because freelancers give up after one email. People are busy. Following up is not annoying, it is professional. A systematic follow up process means you do not leave money on the table just because someone was too swamped to reply the first time.
+      </div>
+    </div>
+
+    <div class="question" data-category="6">
+      <div class="question-text">Do you know where your best clients come from (referrals, portfolio, cold outreach)?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        If you do not track lead sources, you waste time on marketing that does not work. Knowing where good clients come from lets you double down on what works and stop doing what does not. Track every client so you can invest in the right channels.
+      </div>
+    </div>
+
+    <div class="question" data-category="6">
+      <div class="question-text">Do you have a way to generate leads even when you are busy with client work?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        The feast or famine cycle happens when you only market when you are desperate. Systems that run while you work (email list, portfolio, referral process, content) mean leads come in whether you are actively selling or not. Marketing should be evergreen, not episodic.
+      </div>
+    </div>
+
+    <div class="question" data-category="6">
+      <div class="question-text">Can you articulate your value in one sentence without using jargon?</div>
+      <div class="question-buttons">
+        <button class="btn btn-yes" onclick="answer(this, true)">Yes</button>
+        <button class="btn btn-no" onclick="answer(this, false)">No</button>
+      </div>
+      <div class="question-why">
+        <strong>Why this matters</strong>
+        If you can not explain what you do simply, clients will not understand your value. Jargon makes you sound smart but it does not close deals. A clear, simple value statement makes it easy for people to refer you and easy for prospects to say yes.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="results" id="results">
+  <div class="results-inner">
+    <h2>Your Results</h2>
+    <div class="results-score"><span id="finalScore">0</span><span>/42</span></div>
+    <div class="results-label" id="resultLabel">Not Started</div>
+    <p class="results-message" id="resultMessage">Answer all questions to see your score and diagnosis.</p>
+    
+    <button class="download-btn" onclick="window.print()" style="display: none;" id="downloadBtn">Download Your Results</button>
+    
+    <div class="results-breakdown">
+      <div class="breakdown-item">
+        <h4>Operations & Systems</h4>
+        <div class="breakdown-score"><span id="breakdown1">0</span><span>/7</span></div>
+        <p id="breakdown1-msg">Your operational foundation.</p>
+      </div>
+      <div class="breakdown-item">
+        <h4>Financial Health</h4>
+        <div class="breakdown-score"><span id="breakdown2">0</span><span>/8</span></div>
+        <p id="breakdown2-msg">How you manage money.</p>
+      </div>
+      <div class="breakdown-item">
+        <h4>Client Management</h4>
+        <div class="breakdown-score"><span id="breakdown3">0</span><span>/7</span></div>
+        <p id="breakdown3-msg">How you work with clients.</p>
+      </div>
+      <div class="breakdown-item">
+        <h4>Time & Productivity</h4>
+        <div class="breakdown-score"><span id="breakdown4">0</span><span>/6</span></div>
+        <p id="breakdown4-msg">How you use your time.</p>
+      </div>
+      <div class="breakdown-item">
+        <h4>Business Strategy</h4>
+        <div class="breakdown-score"><span id="breakdown5">0</span><span>/7</span></div>
+        <p id="breakdown5-msg">Your long term direction.</p>
+      </div>
+      <div class="breakdown-item">
+        <h4>Marketing & Sales</h4>
+        <div class="breakdown-score"><span id="breakdown6">0</span><span>/7</span></div>
+        <p id="breakdown6-msg">How you get clients.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Want help fixing what is broken? Join my newsletter for templates, systems, and the kind of business advice that actually works.</p>
+  <a href="https://sabrinassantiago.myflodesk.com/waitlist" class="footer-link">Join the Waitlist</a>
+  <p style="margin-top: 40px; font-size: 12px; opacity: 0.6;">© Sabrina S. Santiago. This resource was created exclusively for my community. Please do not redistribute or share without permission.</p>
+</div>
+
+<script>
+let scores = {
+  1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0
+};
+
+let totalAnswered = 0;
+const totalQuestions = 42;
+
+function answer(btn, isYes) {
+  const question = btn.closest('.question');
+  const category = parseInt(question.dataset.category);
+  const buttons = question.querySelectorAll('.btn');
+  
+  // Remove previous answer
+  const wasAnswered = question.classList.contains('answered-yes') || question.classList.contains('answered-no');
+  const wasYes = question.classList.contains('answered-yes');
+  
+  buttons.forEach(b => b.classList.remove('active'));
+  question.classList.remove('answered-yes', 'answered-no');
+  
+  // Update score
+  if (wasAnswered && wasYes) {
+    scores[category]--;
+    totalAnswered--;
+  } else if (wasAnswered && !wasYes) {
+    totalAnswered--;
+  }
+  
+  // Add new answer
+  if (isYes) {
+    question.classList.add('answered-yes');
+    scores[category]++;
+    totalAnswered++;
+  } else {
+    question.classList.add('answered-no');
+    totalAnswered++;
+  }
+  
+  btn.classList.add('active');
+  
+  updateScores();
+  checkCompletion();
+}
+
+function updateScores() {
+  // Update category scores
+  for (let i = 1; i <= 6; i++) {
+    const els = document.querySelectorAll(`[data-category="${i}"] .cat-score`);
+    els.forEach(el => el.textContent = scores[i]);
+  }
+  
+  // Update total score
+  const total = Object.values(scores).reduce((a, b) => a + b, 0);
+  document.getElementById('headerScore').textContent = total;
+  document.getElementById('finalScore').textContent = total;
+  
+  // Update breakdown
+  for (let i = 1; i <= 6; i++) {
+    document.getElementById(`breakdown${i}`).textContent = scores[i];
+  }
+}
+
+function checkCompletion() {
+  if (totalAnswered === totalQuestions) {
+    const total = Object.values(scores).reduce((a, b) => a + b, 0);
+    const percent = Math.round((total / totalQuestions) * 100);
+    
+    // Find lowest scoring categories
+    const categoryNames = {
+      1: 'Operations & Systems',
+      2: 'Financial Health',
+      3: 'Client Management',
+      4: 'Time & Productivity',
+      5: 'Business Strategy',
+      6: 'Marketing & Sales'
+    };
+    
+    const categoryMaxes = {
+      1: 7, 2: 8, 3: 7, 4: 6, 5: 7, 6: 7
+    };
+    
+    // Calculate percentages for each category
+    const categoryPercentages = {};
+    for (let i = 1; i <= 6; i++) {
+      categoryPercentages[i] = (scores[i] / categoryMaxes[i]) * 100;
+    }
+    
+    // Sort categories by percentage (lowest first)
+    const sortedCategories = Object.entries(categoryPercentages)
+      .sort((a, b) => a[1] - b[1])
+      .map(entry => parseInt(entry[0]));
+    
+    const lowestCat = sortedCategories[0];
+    const secondLowestCat = sortedCategories[1];
+    
+    let label, message;
+    
+    if (percent >= 90) {
+      label = 'Excellent';
+      message = `Your business is in great shape. You have strong foundations and systems. Your weakest area is ${categoryNames[lowestCat]}, but even that is solid. Focus on scaling what is working and keep reviewing quarterly to maintain momentum.`;
+    } else if (percent >= 75) {
+      label = 'Strong';
+      message = `Your business is solid with a few gaps to address. Your lowest scoring categories are ${categoryNames[lowestCat]} and ${categoryNames[secondLowestCat]}. Fix those issues first and you will be running a really tight operation.`;
+    } else if (percent >= 60) {
+      label = 'Functional';
+      message = `Your business works but has significant room for improvement. Focus on ${categoryNames[lowestCat]} and ${categoryNames[secondLowestCat]} for the next 90 days. Fixing your weakest areas will have the biggest impact on your income and sanity.`;
+    } else if (percent >= 40) {
+      label = 'Struggling';
+      message = `Your business is held together with duct tape and hope. The good news is every no is fixable. Start with ${categoryNames[lowestCat]} and ${categoryNames[secondLowestCat]}. Get those stable before worrying about your stronger areas.`;
+    } else {
+      label = 'Crisis Mode';
+      message = `Your business is barely a business right now. That is okay, everyone starts somewhere. Your biggest problems are ${categoryNames[lowestCat]} and ${categoryNames[secondLowestCat]}. Focus on the absolute basics in those areas first. Build from there.`;
+    }
+    
+    document.getElementById('resultLabel').textContent = label;
+    document.getElementById('resultMessage').textContent = message;
+    document.getElementById('downloadBtn').style.display = 'inline-block';
+    
+    // Category specific messages
+    const catMessages = [
+      { min: 6, msg: 'Strong operational foundation.' },
+      { min: 4, msg: 'Some systems in place, needs work.' },
+      { min: 0, msg: 'Operations are broken. Build systems first.' }
+    ];
+    
+    for (let i = 1; i <= 6; i++) {
+      const score = scores[i];
+      let msg = 'Needs immediate attention.';
+      
+      for (let cm of catMessages) {
+        if (score >= cm.min) {
+          msg = cm.msg;
+          break;
+        }
+      }
+      
+      const msgEl = document.getElementById(`breakdown${i}-msg`);
+      if (msgEl) msgEl.textContent = msg;
+    }
+    
+    document.getElementById('results').classList.add('show');
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+  }
+}
+</script>
+
+</body>
+</html>

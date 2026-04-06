@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contract Clauses Every Freelancer Needs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --red: #a70101;
+    --black: #1a1a1a;
+    --white: #ffffff;
+    --cream: #f7f4f0;
+    --cream-dark: #ede9e3;
+    --gray: #c8c2ba;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--black);
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--white);
+    border-bottom: 8px solid var(--black);
+    padding: 80px 40px 60px;
+  }
+
+  .header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(42px, 7vw, 72px);
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+
+  .title em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  .intro {
+    font-size: 16px;
+    color: #6b6560;
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  /* MAIN CONTENT */
+  .content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* DISCLAIMER BOX */
+  .disclaimer {
+    background: var(--black);
+    color: var(--white);
+    padding: 32px 40px;
+    margin-bottom: 60px;
+    border-left: 6px solid var(--red);
+  }
+
+  .disclaimer h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px;
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+
+  .disclaimer p {
+    font-size: 14px;
+    line-height: 1.7;
+    opacity: 0.9;
+  }
+
+  /* CLAUSE CARDS */
+  .clause {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 40px;
+    margin-bottom: 24px;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .clause:hover {
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 var(--black);
+  }
+
+  .clause.critical {
+    border-color: var(--red);
+  }
+
+  .clause.critical:hover {
+    box-shadow: 6px 6px 0 var(--red);
+  }
+
+  .clause-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .clause-number {
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px;
+    font-style: italic;
+    color: var(--gray);
+    line-height: 1;
+    min-width: 60px;
+  }
+
+  .clause.critical .clause-number {
+    color: var(--red);
+  }
+
+  .clause-title-group {
+    flex: 1;
+  }
+
+  .clause-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+
+  .clause-risk {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    background: var(--cream);
+    color: var(--black);
+    border-radius: 3px;
+  }
+
+  .clause.critical .clause-risk {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  .clause-section {
+    margin-bottom: 24px;
+  }
+
+  .clause-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .clause-section h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  .clause-section p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #3a3430;
+  }
+
+  .clause-example {
+    background: var(--cream);
+    padding: 20px 24px;
+    border-left: 3px solid var(--black);
+    font-size: 14px;
+    line-height: 1.8;
+    color: #2a2420;
+    font-style: italic;
+  }
+
+  .clause.critical .clause-example {
+    border-left-color: var(--red);
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--black);
+    color: var(--white);
+    padding: 60px 40px;
+    text-align: center;
+  }
+
+  .footer p {
+    font-size: 14px;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto 20px;
+    line-height: 1.7;
+  }
+
+  .footer-link {
+    display: inline-block;
+    background: var(--red);
+    color: var(--white);
+    padding: 14px 32px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    transition: background 0.2s ease;
+  }
+
+  .footer-link:hover {
+    background: #8b0101;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .header {
+      padding: 60px 24px 40px;
+    }
+
+    .content {
+      padding: 40px 24px 80px;
+    }
+
+    .clause {
+      padding: 28px 24px;
+    }
+
+    .clause-header {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .clause-number {
+      font-size: 36px;
+    }
+
+    .clause-title {
+      font-size: 24px;
+    }
+
+    .disclaimer {
+      padding: 24px 28px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="eyebrow">Freelancer Legal Protection</div>
+    <h1 class="title">Contract Clauses <em>Every Freelancer Needs</em></h1>
+    <p class="intro">The only thing worse than a basic contract is no contract. These are the clauses I wish I had added from day one, before something went wrong.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="disclaimer">
+    <h3>Legal Disclaimer</h3>
+    <p>This is not legal advice. This is just a freelancer with years of mistakes showing you what worked for me. Every country has different rules. Talk to an actual lawyer before using any of this. We will all hire you eventually, we are working on it.</p>
+  </div>
+
+  <!-- CLAUSE 1 -->
+  <div class="clause critical">
+    <div class="clause-header">
+      <div class="clause-number">01</div>
+      <div class="clause-title-group">
+        <h2 class="clause-title">Kill Fee</h2>
+        <span class="clause-risk">Critical Protection</span>
+      </div>
+    </div>
+    
+    <div class="clause-section">
+      <h4>Why You Need This</h4>
+      <p>If they cancel the project after you have already started, you keep a percentage of the total fee. Without this, you get nothing for all the time you spent on strategy, research, and planning. Clients who know they are flaky will push back on this clause. That tells you everything.</p>
+    </div>
+
+    <div class="clause-section">
+      <h4>Example Language</h4>
+      <div class="clause-example">
+        If Client cancels this project after work has begun, a kill fee of [30-50%] of the total project fee is due within [7-14] days. This compensates Freelancer for time spent on research, planning, and any work completed to date.
+      </div>
+    </div>
+
+    <div class="clause-section">
+      <h4>When to Use It</h4>
+      <p>Every single project. No exceptions. Especially with new clients or clients in industries known for changing their minds often like startups, agencies, or companies going through restructuring.</p>
+    </div>
+  </div>
+
+  <!-- CLAUSE 2 -->
+  <div class="clause critical">
+    <div class="clause-header">
+      <div class="clause-number">02</div>
+      <div class="clause-title-group">
+        <h2 class="clause-title">Scope Clause</h2>
+        <span class="clause-risk">Critical Protection</span>
+      </div>
+    </div>
+    
+    <div class="clause-section">
+      <h4>Why You Need This</h4>
+      <p>Anything outside the original brief is a new quote. This stops clients from asking for just one more thing over and over until you have done triple the work for the same price. Scope creep will kill your hourly rate faster than anything else. This clause gives you permission to say no or charge more.</p>
+    </div>
+
+    <div class="clause-section">
+      <h4>Example Language</h4>
+      <div class="clause-example">
+        This agreement covers the deliverables and services outlined in the project brief dated [DATE]. Any requests outside this scope, including additional revisions beyond [NUMBER] rounds, extra deliverables, or changes to core requirements, will be quoted separately and require a new agreement or amendment.
+      </div>
+    </div>
+
+    <div class="clause-section">
+      <h4>When to Use It</h4>
+      <p>Every project, especially ones where the client is not sure what they want yet or where stakeholders keep changing. If they say we will figure it out as we go, this clause is non negotiable.</p>
+    </div>
+  </div>
+
+  <!-- CLAUSE 3 -->
+  <div class="clause">
+    <div class="clause-header">
+      <div class="clause-number">03</div>
+      <div class="clause-title-group">
+        <h2 class="clause-title">Approval Deadline</h2>
+        <span class="clause-risk">Time Protection</span>
+      </div>
+    </div>
+    
+    <div class="clause-section">
+      <h4>Why You Need This</h4>
+      <p>No response in X days means approved. This stops projects from dying in approval hell while you wait for feedback that never comes. Some clients will sit on your work for weeks and then ask for changes based on outdated information. Automatic approval keeps projects moving and protects your timeline.</p>
+    </div>
+
+    <div class="clause-section">
+      <h4>Example Language</h4>
+      <div class="clause-example">
+        Client has [5-7] business days to review and provide feedback on deliverables. If no feedback is received within this timeframe, the deliverable is considered approved and Freelancer will proceed to the next phase. Requests for revisions after this deadline may be subject to additional fees.
+      </div>
+    </div>
+
+    <div class="clause-section">
+      <h4>When to Use It</h4>
+      <p>Projects with multiple approval steps, clients with slow internal processes, or any project where you need to move fast. Especially important if you have other clients waiting or tight deadlines downstream.</p>
+    </div>
+  </div>
+
+  <!-- CLAUSE 4 -->
+  <div class="clause critical">
+    <div class="clause-header">
+      <div class="clause-number">04</div>
+      <div class="clause-title-group">
+        <h2 class="clause-title">Late Payment Fee</h2>
+        <span class="clause-risk">Critical Protection</span>
+      </div>
+    </div>
+    
+    <div class="clause-section">
+      <h4>Why You Need This</h4>
+      <p>Automatic fee, not a conversation you have to start. When clients know there is a real consequence for paying late, they pay on time. Without this, you are the one sending awkward reminder emails while they treat your invoice like a suggestion. The fee should hurt enough to matter but not so much that it feels punitive.</p>
+    </div>
+
+    <div class="clause-section">
+      <h4>Example Language</h4>
+      <div class="clause-example">
+        Invoices are due within [NET 15/30] days of issue. A late fee of [1.5-2%] per month (or [flat fee]) will be automatically applied to any outstanding balance after the due date. Continued late payment may result in suspension of work until the account is current.
+      </div>
+    </div>
+
+    <div class="clause-section">
+      <h4>When to Use It</h4>
+      <p>Every contract, every time. Especially with clients who have a history of slow payment, big companies with complex AP departments, or any client paying on net 30 or longer terms.</p>
+    </div>
+  </div>
+
+  <!-- CLAUSE 5 -->
+  <div class="clause critical">
+    <div class="clause-header">
+      <div class="clause-number">05</div>
+      <div class="clause-title-group">
+        <h2 class="clause-title">Portfolio Rights</h2>
+        <span class="clause-risk">Critical Protection</span>
+      </div>
+    </div>
+    
+    <div class="clause-section">
+      <h4>Why You Need This</h4>
+      <p>Your work, your portfolio, full stop. Some clients will try to prevent you from showing the work you did for them. That means you can not use your best work to get your next client. This clause protects your right to display your work publicly unless there is a real NDA or confidentiality reason.</p>
+    </div>
+
+    <div class="clause-section">
+      <h4>Example Language</h4>
+      <div class="clause-example">
+        Freelancer retains the right to display completed work in their portfolio, website, and promotional materials unless Client has a legitimate confidentiality concern. Client may request a delay of up to [3-6] months before work is made public, or request that certain confidential details be redacted, but may not prohibit portfolio use entirely without cause.
+      </div>
+    </div>
+
+    <div class="clause-section">
+      <h4>When to Use It</h4>
+      <p>Always. The only exceptions are actual NDAs covering unreleased products, sensitive financial data, or legally protected information. If a client wants to hide your work just because, that is a red flag about how much they value your contribution.</p>
+    </div>
+  </div>
+
+  <!-- CLAUSE 6 -->
+  <div class="clause">
+    <div class="clause-header">
+      <div class="clause-number">06</div>
+      <div class="clause-title-group">
+        <h2 class="clause-title">Revision Limit</h2>
+        <span class="clause-risk">Scope Protection</span>
+      </div>
+    </div>
+    
+    <div class="clause-section">
+      <h4>Why You Need This</h4>
+      <p>Sets a clear limit on how many rounds of revisions are included in your price. Without this, some clients will ask for endless tweaks until you have redesigned the entire project five times. Common limits are 2-3 rounds depending on the type of work. After that, charge hourly or per revision.</p>
+    </div>
+
+    <div class="clause-section">
+      <h4>Example Language</h4>
+      <div class="clause-example">
+        This project includes [2-3] rounds of revisions based on Client feedback. Additional revision rounds beyond this are billed at [hourly rate] or [per-revision fee]. Revisions must be based on the original project brief. Requests that change core requirements are considered new scope and will be quoted separately.
+      </div>
+    </div>
+
+    <div class="clause-section">
+      <h4>When to Use It</h4>
+      <p>Design work, writing projects, anything subjective where the client might have opinions. Especially important with clients who have multiple stakeholders giving feedback or clients who are indecisive.</p>
+    </div>
+  </div>
+
+  <!-- CLAUSE 7 -->
+  <div class="clause">
+    <div class="clause-header">
+      <div class="clause-number">07</div>
+      <div class="clause-title-group">
+        <h2 class="clause-title">Payment Schedule</h2>
+        <span class="clause-risk">Cash Flow Protection</span>
+      </div>
+    </div>
+    
+    <div class="clause-section">
+      <h4>Why You Need This</h4>
+      <p>Breaks payment into milestones instead of waiting until the end. For big projects, waiting 3 months to get paid is a cash flow nightmare. A deposit upfront also filters out clients who are not serious. Common splits are 50% upfront and 50% on delivery, or 33% at start, 33% at midpoint, 34% at completion.</p>
+    </div>
+
+    <div class="clause-section">
+      <h4>Example Language</h4>
+      <div class="clause-example">
+        Payment will be made in the following installments: [50%] deposit due upon signing this agreement, [25%] due upon [milestone], and [25%] due upon final delivery. Work will not commence until the initial deposit is received. Each subsequent phase requires payment of the prior milestone before beginning.
+      </div>
+    </div>
+
+    <div class="clause-section">
+      <h4>When to Use It</h4>
+      <p>Any project over your normal project size or timeline. If it takes more than 2 weeks to complete, break it into payments. Always get a deposit from new clients, even for small projects.</p>
+    </div>
+  </div>
+
+  <!-- CLAUSE 8 -->
+  <div class="clause">
+    <div class="clause-header">
+      <div class="clause-number">08</div>
+      <div class="clause-title-group">
+        <h2 class="clause-title">Termination Clause</h2>
+        <span class="clause-risk">Exit Protection</span>
+      </div>
+    </div>
+    
+    <div class="clause-section">
+      <h4>Why You Need This</h4>
+      <p>Defines how either party can end the contract and what happens to payment and deliverables when they do. Protects both you and the client if the relationship is not working. Without this, termination becomes a legal mess and you might not get paid for work already completed.</p>
+    </div>
+
+    <div class="clause-section">
+      <h4>Example Language</h4>
+      <div class="clause-example">
+        Either party may terminate this agreement with [14-30] days written notice. Upon termination, Client will pay for all work completed to date at the agreed upon rate, plus any expenses already incurred. Freelancer will deliver all completed work and work in progress in its current state. Kill fee terms apply if Client terminates after work has begun.
+      </div>
+    </div>
+
+    <div class="clause-section">
+      <h4>When to Use It</h4>
+      <p>Every contract, especially retainers or ongoing arrangements. This protects you if the client becomes difficult and protects them if your work is not meeting expectations. Both parties should be able to exit cleanly.</p>
+    </div>
+  </div>
+
+  <!-- CLAUSE 9 -->
+  <div class="clause">
+    <div class="clause-header">
+      <div class="clause-number">09</div>
+      <div class="clause-title-group">
+        <h2 class="clause-title">Expenses Clause</h2>
+        <span class="clause-risk">Cost Protection</span>
+      </div>
+    </div>
+    
+    <div class="clause-section">
+      <h4>Why You Need This</h4>
+      <p>Clarifies which expenses are included in your fee and which are billed separately. Common reimbursable expenses include stock photos, fonts, software subscriptions needed for the project, or travel costs. Get approval before spending client money and keep all receipts.</p>
+    </div>
+
+    <div class="clause-section">
+      <h4>Example Language</h4>
+      <div class="clause-example">
+        The project fee does not include third party costs such as [stock photography, licensed fonts, paid software, printing, shipping, or travel]. These expenses will be billed separately with Client approval. Freelancer will provide receipts and invoices for all reimbursable expenses. Expenses over [amount] require written approval before purchase.
+      </div>
+    </div>
+
+    <div class="clause-section">
+      <h4>When to Use It</h4>
+      <p>Projects where you might need to purchase assets or tools on the client's behalf. Creative work, production projects, anything requiring third party services or materials. Set a threshold amount that requires approval to avoid surprises.</p>
+    </div>
+  </div>
+
+  <!-- CLAUSE 10 -->
+  <div class="clause">
+    <div class="clause-header">
+      <div class="clause-number">10</div>
+      <div class="clause-title-group">
+        <h2 class="clause-title">Rush Fee</h2>
+        <span class="clause-risk">Time Protection</span>
+      </div>
+    </div>
+    
+    <div class="clause-section">
+      <h4>Why You Need This</h4>
+      <p>Charges extra when the client needs work completed faster than your normal timeline. Your time is worth more when you have to drop everything else to prioritize their emergency. Rush fees are typically 25-50% on top of your normal rate depending on how tight the deadline is.</p>
+    </div>
+
+    <div class="clause-section">
+      <h4>Example Language</h4>
+      <div class="clause-example">
+        Projects requiring delivery in less than [X] business days from the start date are subject to a rush fee of [25-50%] of the total project fee. This compensates Freelancer for rearranging their schedule and prioritizing Client work over other commitments. Rush requests must be agreed to in writing before work begins.
+      </div>
+    </div>
+
+    <div class="clause-section">
+      <h4>When to Use It</h4>
+      <p>Include it in every contract even if you do not plan to accept rush work. This sets the expectation that fast turnarounds cost more. When a client has a real emergency, you have the structure already in place to charge appropriately.</p>
+    </div>
+  </div>
+
+  <!-- CLAUSE 11 -->
+  <div class="clause">
+    <div class="clause-header">
+      <div class="clause-number">11</div>
+      <div class="clause-title-group">
+        <h2 class="clause-title">Client Responsibilities</h2>
+        <span class="clause-risk">Dependency Protection</span>
+      </div>
+    </div>
+    
+    <div class="clause-section">
+      <h4>Why You Need This</h4>
+      <p>Lists what the client needs to provide for you to do your job. Things like timely feedback, access to systems, brand assets, stakeholder availability, or source files. If they do not hold up their end, the timeline shifts and it is not your fault. This protects you when client delays cause project delays.</p>
+    </div>
+
+    <div class="clause-section">
+      <h4>Example Language</h4>
+      <div class="clause-example">
+        Client agrees to provide [list specific items: timely feedback, access to necessary systems, brand guidelines, stakeholder availability, content, assets, etc.] within the agreed upon timeframes. Delays in providing these materials will extend the project timeline accordingly. Freelancer is not responsible for missed deadlines caused by Client delays.
+      </div>
+    </div>
+
+    <div class="clause-section">
+      <h4>When to Use It</h4>
+      <p>Any project that depends on the client giving you something. Writing projects that need subject matter expert interviews, design work that needs brand assets, technical work that needs system access. If you can not finish without their input, spell out exactly what you need and when.</p>
+    </div>
+  </div>
+
+  <!-- CLAUSE 12 -->
+  <div class="clause">
+    <div class="clause-header">
+      <div class="clause-number">12</div>
+      <div class="clause-title-group">
+        <h2 class="clause-title">Intellectual Property Transfer</h2>
+        <span class="clause-risk">Ownership Protection</span>
+      </div>
+    </div>
+    
+    <div class="clause-section">
+      <h4>Why You Need This</h4>
+      <p>Specifies when ownership of the work transfers from you to the client. Common practice is that you own it until they pay in full. This gives you leverage if they try to use your work without paying. Some freelancers retain ownership of concepts and process work, only transferring final deliverables.</p>
+    </div>
+
+    <div class="clause-section">
+      <h4>Example Language</h4>
+      <div class="clause-example">
+        Freelancer retains all rights to the work product until Client has paid in full. Upon receipt of final payment, Freelancer grants Client full ownership and rights to use the final deliverables. Freelancer retains ownership of preliminary concepts, drafts, and process work unless otherwise agreed. Client may not use, reproduce, or share the work until payment is complete.
+      </div>
+    </div>
+
+    <div class="clause-section">
+      <h4>When to Use It</h4>
+      <p>Every creative project. Design, writing, video, photography, anything you create from scratch. This is especially important with clients who are slow to pay or clients you do not fully trust yet. No pay, no ownership.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Want more resources like this? Join my newsletter for templates, tools, and the kind of freelance advice that actually works.</p>
+  <a href="https://sabrinassantiago.myflodesk.com/waitlist" class="footer-link">Join the Waitlist</a>
+  <p style="margin-top: 40px; font-size: 12px; opacity: 0.6;">© Sabrina S. Santiago. This resource was created exclusively for my community. Please do not redistribute or share without permission.</p>
+</div>
+
+</body>
+</html>

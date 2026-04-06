@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>How to Raise Your Rates With Existing Clients</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --red: #a70101;
+    --black: #1a1a1a;
+    --white: #ffffff;
+    --cream: #f7f4f0;
+    --cream-dark: #ede9e3;
+    --gray: #c8c2ba;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--black);
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--white);
+    border-bottom: 8px solid var(--black);
+    padding: 80px 40px 60px;
+  }
+
+  .header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(42px, 7vw, 72px);
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+
+  .title em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  .intro {
+    font-size: 16px;
+    color: #6b6560;
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  /* MAIN CONTENT */
+  .content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* BEFORE YOU SEND */
+  .before-section {
+    background: var(--black);
+    color: var(--white);
+    padding: 40px;
+    margin-bottom: 60px;
+  }
+
+  .before-section h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px;
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+
+  .before-section p {
+    font-size: 15px;
+    line-height: 1.7;
+    opacity: 0.9;
+    margin-bottom: 16px;
+  }
+
+  .before-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* TEMPLATE CARDS */
+  .template {
+    background: var(--white);
+    border: 2px solid var(--black);
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+
+  .template-header {
+    background: var(--cream);
+    padding: 24px 32px;
+    border-bottom: 2px solid var(--black);
+  }
+
+  .template-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .template-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+
+  .template-description {
+    font-size: 14px;
+    color: #6b6560;
+    line-height: 1.6;
+  }
+
+  .template-body {
+    padding: 40px;
+  }
+
+  .email-field {
+    margin-bottom: 20px;
+  }
+
+  .email-field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .email-field input,
+  .email-field textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--cream-dark);
+    background: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--black);
+    resize: vertical;
+  }
+
+  .email-field input:focus,
+  .email-field textarea:focus {
+    outline: none;
+    border-color: var(--black);
+  }
+
+  .email-body {
+    background: var(--cream);
+    padding: 24px;
+    border: 2px solid var(--black);
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--black);
+    white-space: pre-wrap;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .editable {
+    background: var(--white);
+    padding: 2px 6px;
+    border-bottom: 2px solid var(--red);
+    font-weight: 600;
+  }
+
+  .copy-btn {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: var(--black);
+    color: var(--white);
+    border: 2px solid var(--black);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .copy-btn:hover {
+    background: var(--white);
+    color: var(--black);
+  }
+
+  .copy-btn.copied {
+    background: var(--red);
+    border-color: var(--red);
+  }
+
+  /* TIPS */
+  .tips {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 32px 40px;
+    margin-top: 60px;
+  }
+
+  .tips h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+
+  .tip {
+    margin-bottom: 24px;
+  }
+
+  .tip:last-child {
+    margin-bottom: 0;
+  }
+
+  .tip h4 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .tip p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #3a3430;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--black);
+    color: var(--white);
+    padding: 60px 40px;
+    text-align: center;
+  }
+
+  .footer p {
+    font-size: 14px;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto 20px;
+    line-height: 1.7;
+  }
+
+  .footer-link {
+    display: inline-block;
+    background: var(--red);
+    color: var(--white);
+    padding: 14px 32px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    transition: background 0.2s ease;
+  }
+
+  .footer-link:hover {
+    background: #8b0101;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .header {
+      padding: 60px 24px 40px;
+    }
+
+    .content {
+      padding: 40px 24px 80px;
+    }
+
+    .before-section,
+    .template-body,
+    .tips {
+      padding: 28px 24px;
+    }
+
+    .template-header {
+      padding: 20px 24px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="eyebrow">Raise Your Rates Without Fear</div>
+    <h1 class="title">The Rate Increase <em>Template</em></h1>
+    <p class="intro">I have never met a freelancer who regretted raising their rates with a long-term client, but I have met plenty who waited too long. Send the damn email.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="before-section">
+    <h2>A Quick Note Before You Use These</h2>
+    
+    <p>I chose to write these templates in a more corporate voice to make sure they match the tone most freelancers in my community need when working with corporations.</p>
+    
+    <p>But feel free to adapt them to YOUR voice.</p>
+    
+    <p>Unfortunately I do not call my clients hotties (and I will die crying about that), but maybe you do. Feel free to adapt.</p>
+    
+    <p>Even though I mostly use the Next Project template, I included Annual Rate Review, Retainer, and Results-Driven Increase just so this is useful to everyone.</p>
+    
+    <p>Enjoy, hotties.</p>
+  </div>
+
+  <!-- TEMPLATE 1: ANNUAL RATE REVIEW -->
+  <div class="template">
+    <div class="template-header">
+      <div class="template-label">Template 01</div>
+      <h3 class="template-title">Annual Rate Review</h3>
+      <p class="template-description">Standard professional rate increase. Use this for clients you have worked with for a year or more. Direct and confident.</p>
+    </div>
+    <div class="template-body">
+      <div class="email-body" id="template1">Hi <span class="editable">[Client Name]</span>,
+
+I wanted to give you advance notice that my rates will be increasing to <span class="editable">[New Rate]</span> effective <span class="editable">[Date]</span>.
+
+I review my rates annually to reflect my growing experience and the market rate for my work. Since we started working together, I have <span class="editable">[delivered X projects / helped you achieve Y results / grown my expertise in Z]</span>.
+
+Your current project will be completed at our existing rate. Starting <span class="editable">[Date]</span>, new projects will be billed at the updated rate.
+
+I value our working relationship and look forward to continuing to deliver great work for you.
+
+Let me know if you have any questions.
+
+<span class="editable">[Your Name]</span></div>
+      <button class="copy-btn" onclick="copyTemplate('template1', this)">Copy Template</button>
+    </div>
+  </div>
+
+  <!-- TEMPLATE 2: PROJECT-BASED INCREASE -->
+  <div class="template">
+    <div class="template-header">
+      <div class="template-label">Template 02</div>
+      <h3 class="template-title">Next Project Rate Increase</h3>
+      <p class="template-description">For clients you work with on individual projects rather than retainers. Frames the increase around the next engagement.</p>
+    </div>
+    <div class="template-body">
+      <div class="email-body" id="template2">Hi <span class="editable">[Client Name]</span>,
+
+Thanks for reaching out about <span class="editable">[next project]</span>. I would love to work on this with you.
+
+I wanted to let you know my rates have increased since our last project. My new rate is <span class="editable">[New Rate]</span>.
+
+This reflects the experience I have gained and the market rate for this type of work. I am confident I can deliver even better results for you than last time.
+
+If that works for you, I can send over a proposal this week. Let me know if you have any questions.
+
+<span class="editable">[Your Name]</span></div>
+      <button class="copy-btn" onclick="copyTemplate('template2', this)">Copy Template</button>
+    </div>
+  </div>
+
+  <!-- TEMPLATE 3: RETAINER RATE INCREASE -->
+  <div class="template">
+    <div class="template-header">
+      <div class="template-label">Template 03</div>
+      <h3 class="template-title">Retainer Rate Adjustment</h3>
+      <p class="template-description">For ongoing retainer clients. Gives notice period and acknowledges the relationship. Offer options to keep things flexible.</p>
+    </div>
+    <div class="template-body">
+      <div class="email-body" id="template3">Hi <span class="editable">[Client Name]</span>,
+
+I wanted to give you <span class="editable">[30/60/90]</span> days notice that my retainer rate will be increasing to <span class="editable">[New Rate]</span> starting <span class="editable">[Date]</span>.
+
+I have loved working with you over the past <span class="editable">[time period]</span>. In that time, <span class="editable">[we have accomplished X, my expertise has grown in Y, the scope has expanded to include Z]</span>.
+
+This rate increase reflects the value I am providing and brings my pricing in line with market rates.
+
+I have a few options to make this work for your budget:
+- Continue at the new rate with our current scope
+- Adjust the scope to fit your existing budget
+- Move to a project-based arrangement instead of a retainer
+
+Let me know which makes the most sense for you. I am happy to discuss on a call if that is easier.
+
+<span class="editable">[Your Name]</span></div>
+      <button class="copy-btn" onclick="copyTemplate('template3', this)">Copy Template</button>
+    </div>
+  </div>
+
+  <!-- TEMPLATE 4: VALUE-BASED INCREASE -->
+  <div class="template">
+    <div class="template-header">
+      <div class="template-label">Template 04</div>
+      <h3 class="template-title">Results-Driven Rate Increase</h3>
+      <p class="template-description">Ties the increase directly to results you have delivered. Best for clients where you can quantify impact.</p>
+    </div>
+    <div class="template-body">
+      <div class="email-body" id="template4">Hi <span class="editable">[Client Name]</span>,
+
+I wanted to share some updates on my pricing going forward.
+
+Over the past <span class="editable">[time period]</span>, we have achieved some great results together: <span class="editable">[specific results: increased revenue by X%, reduced costs by Y, delivered Z projects on time and under budget]</span>.
+
+Based on the value I am providing and the expertise I bring to your projects, my rates will be increasing to <span class="editable">[New Rate]</span> starting <span class="editable">[Date]</span>.
+
+I am confident this is a fair rate for the results you are getting, and I am excited to continue delivering even more value.
+
+Let me know if you have any questions.
+
+<span class="editable">[Your Name]</span></div>
+      <button class="copy-btn" onclick="copyTemplate('template4', this)">Copy Template</button>
+    </div>
+  </div>
+
+  <div class="tips">
+    <h3>What to Do After You Send</h3>
+    
+    <div class="tip">
+      <h4>Close your laptop and go for a walk</h4>
+      <p>Seriously. Do not sit there refreshing your email. Give them time to process. Most will reply within 24 hours.</p>
+    </div>
+
+    <div class="tip">
+      <h4>If they ask why</h4>
+      <p>Refer back to the reasons in your email. Your experience has grown, your costs have increased, or your results justify it. Do not apologize or backtrack.</p>
+    </div>
+
+    <div class="tip">
+      <h4>If they negotiate</h4>
+      <p>You can adjust scope to meet their budget, but do not lower your rate. Trading less work for the same money is fine. Working for less is not.</p>
+    </div>
+
+    <div class="tip">
+      <h4>If they say no</h4>
+      <p>Thank them for the work you did together and move on. Clients who can not afford your new rate are not your clients anymore. That is okay. Make room for better ones.</p>
+    </div>
+
+    <div class="tip">
+      <h4>If they ghost</h4>
+      <p>Follow up once after a week. If still nothing, assume they are not interested and move forward. Do not chase people who do not value your work.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Want more templates and resources like this? Join my newsletter for the kind of freelance business advice that actually works.</p>
+  <a href="https://sabrinassantiago.myflodesk.com/waitlist" class="footer-link">Join the Waitlist</a>
+  <p style="margin-top: 40px; font-size: 12px; opacity: 0.6;">© Sabrina S. Santiago. This resource was created exclusively for my community. Please do not redistribute or share without permission.</p>
+</div>
+
+<script>
+function copyTemplate(templateId, btn) {
+  const template = document.getElementById(templateId);
+  const text = template.innerText;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(err => {
+    alert('Failed to copy. Please select and copy manually.');
+  });
+}
+</script>
+
+</body>
+</html>

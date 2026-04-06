@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Retainer Red Flags - What to Look For</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --red: #a70101;
+    --black: #1a1a1a;
+    --white: #ffffff;
+    --cream: #f7f4f0;
+    --cream-dark: #ede9e3;
+    --gray: #c8c2ba;
+    --yellow: #f4a261;
+    --green: #2d5016;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--black);
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--white);
+    border-bottom: 8px solid var(--black);
+    padding: 80px 40px 60px;
+  }
+
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(42px, 7vw, 72px);
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+
+  .title em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  .intro {
+    font-size: 16px;
+    color: #6b6560;
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  /* MAIN CONTENT */
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* TIER SECTION */
+  .tier-section {
+    margin-bottom: 60px;
+  }
+
+  .tier-section:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .tier-header {
+    padding: 32px 40px;
+    margin-bottom: 24px;
+    border: 3px solid var(--black);
+  }
+
+  .tier-header.red {
+    background: var(--red);
+    color: var(--white);
+    border-color: var(--red);
+  }
+
+  .tier-header.yellow {
+    background: var(--yellow);
+    color: var(--black);
+    border-color: var(--yellow);
+  }
+
+  .tier-header.green {
+    background: var(--green);
+    color: var(--white);
+    border-color: var(--green);
+  }
+
+  .tier-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 8px;
+  }
+
+  .tier-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px;
+    line-height: 1.1;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+
+  .tier-description {
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 0.95;
+  }
+
+  .tier-header.yellow .tier-description {
+    opacity: 1;
+  }
+
+  /* FLAGS GRID */
+  .flags-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+  }
+
+  .flag-card {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 24px 28px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .flag-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 var(--black);
+  }
+
+  .flag-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: var(--black);
+  }
+
+  .flag-card.red:before {
+    background: var(--red);
+  }
+
+  .flag-card.yellow:before {
+    background: var(--yellow);
+  }
+
+  .flag-card.green:before {
+    background: var(--green);
+  }
+
+  .flag-text {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--black);
+    padding-right: 30px;
+  }
+
+  .flag-card:after {
+    content: '+';
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--gray);
+    transition: transform 0.2s ease;
+  }
+
+  .flag-card.expanded:after {
+    content: '−';
+    transform: rotate(0deg);
+  }
+
+  .flag-explanation {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--cream-dark);
+    font-size: 14px;
+    line-height: 1.7;
+    color: #4a4440;
+    display: none;
+  }
+
+  .flag-card.expanded .flag-explanation {
+    display: block;
+  }
+
+  .flag-explanation strong {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .flag-card.red .flag-explanation strong {
+    color: var(--red);
+  }
+
+  .flag-card.yellow .flag-explanation strong {
+    color: var(--yellow);
+  }
+
+  .flag-card.green .flag-explanation strong {
+    color: var(--green);
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--black);
+    color: var(--white);
+    padding: 60px 40px;
+    text-align: center;
+  }
+
+  .footer p {
+    font-size: 14px;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto 20px;
+    line-height: 1.7;
+  }
+
+  .footer-link {
+    display: inline-block;
+    background: var(--red);
+    color: var(--white);
+    padding: 14px 32px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    transition: background 0.2s ease;
+  }
+
+  .footer-link:hover {
+    background: #8b0101;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .header {
+      padding: 60px 24px 40px;
+    }
+
+    .content {
+      padding: 40px 24px 80px;
+    }
+
+    .tier-header {
+      padding: 24px 28px;
+    }
+
+    .tier-title {
+      font-size: 36px;
+    }
+
+    .flags-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="eyebrow">Good Retainers vs Bad Retainers</div>
+    <h1 class="title">Retainer <em>Red Flags</em></h1>
+    <p class="intro">A bad retainer is worse than no retainer at all. Keep this open while you review the offer. If you see dealbreakers, walk away. If you see yellow flags, negotiate. If you see green flags, you might have a good one.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- RED FLAGS -->
+  <div class="tier-section">
+    <div class="tier-header red">
+      <div class="tier-label">Dealbreakers</div>
+      <h2 class="tier-title">Red Flags</h2>
+      <p class="tier-description">Walk away immediately. No negotiation will fix these. A retainer with any of these will wreck your business.</p>
+    </div>
+
+    <div class="flags-grid">
+      <div class="flag-card red" onclick="toggleFlag(this)">
+        <p class="flag-text">No written contract or scope of work</p>
+        <div class="flag-explanation">
+          <strong>Why this is a dealbreaker</strong>
+          Without a written agreement, you have zero protection. The client can change everything, refuse to pay, or ghost you and you have no recourse. Verbal agreements mean nothing when money is involved.
+        </div>
+      </div>
+
+      <div class="flag-card red" onclick="toggleFlag(this)">
+        <p class="flag-text">Scope is vague or says "whatever we need"</p>
+        <div class="flag-explanation">
+          <strong>Why this is a dealbreaker</strong>
+          This is scope creep on steroids. Whatever we need means they will ask for everything and you will have no grounds to say no. You will end up doing triple the work for the same money.
+        </div>
+      </div>
+
+      <div class="flag-card red" onclick="toggleFlag(this)">
+        <p class="flag-text">You cannot walk away without paying a fee</p>
+        <div class="flag-explanation">
+          <strong>Why this is a dealbreaker</strong>
+          This traps you in a bad situation. If the client becomes abusive, the work becomes unsustainable, or they start demanding more for less, you are stuck. You need the ability to walk away.
+        </div>
+      </div>
+
+      <div class="flag-card red" onclick="toggleFlag(this)">
+        <p class="flag-text">Rate is below what you would charge hourly for the same work</p>
+        <div class="flag-explanation">
+          <strong>Why this is a dealbreaker</strong>
+          You are discounting yourself for the privilege of being locked into bad terms. Retainers should pay MORE than project rates because you are committing capacity. Taking less is backwards.
+        </div>
+      </div>
+
+      <div class="flag-card red" onclick="toggleFlag(this)">
+        <p class="flag-text">No limit on hours or deliverables included</p>
+        <div class="flag-explanation">
+          <strong>Why this is a dealbreaker</strong>
+          This is an all you can eat buffet and you are the food. Without limits, clients will pile on work until you burn out. You need clear boundaries on what the retainer includes.
+        </div>
+      </div>
+
+      <div class="flag-card red" onclick="toggleFlag(this)">
+        <p class="flag-text">They refuse to put the agreement in writing</p>
+        <div class="flag-explanation">
+          <strong>Why this is a dealbreaker</strong>
+          If they will not commit to writing, they are planning to change the terms later. Professional clients understand contracts protect both parties. Refusal to document is a massive red flag about their intentions.
+        </div>
+      </div>
+
+      <div class="flag-card red" onclick="toggleFlag(this)">
+        <p class="flag-text">Contract locks you in for more than 6 months with no exit clause</p>
+        <div class="flag-explanation">
+          <strong>Why this is a dealbreaker</strong>
+          Six months is a long time to be stuck in a bad situation. Without an exit clause, you are trapped even if the work becomes unbearable or the client violates the agreement. You need an escape hatch.
+        </div>
+      </div>
+
+      <div class="flag-card red" onclick="toggleFlag(this)">
+        <p class="flag-text">They want exclusivity but will not pay for it</p>
+        <div class="flag-explanation">
+          <strong>Why this is a dealbreaker</strong>
+          Exclusivity means you cannot take other clients in that industry or category. That limits how much you can earn. If they want to block you from other work, they need to pay you for that limit.
+        </div>
+      </div>
+
+      <div class="flag-card red" onclick="toggleFlag(this)">
+        <p class="flag-text">Payment terms are net 60 or longer</p>
+        <div class="flag-explanation">
+          <strong>Why this is a dealbreaker</strong>
+          Waiting two months to get paid kills your cash flow. Retainers should be paid upfront at the start of each month, not in arrears. Net 60 means you are financing their business for free.
+        </div>
+      </div>
+
+      <div class="flag-card red" onclick="toggleFlag(this)">
+        <p class="flag-text">They have a history of late payments with you already</p>
+        <div class="flag-explanation">
+          <strong>Why this is a dealbreaker</strong>
+          Past behavior predicts future behavior. If they already pay you late on projects, a retainer will not fix that. You will just have a bigger outstanding balance to chase every month.
+        </div>
+      </div>
+
+      <div class="flag-card red" onclick="toggleFlag(this)">
+        <p class="flag-text">Rate cannot be reviewed or increased for the entire contract term</p>
+        <div class="flag-explanation">
+          <strong>Why this is a dealbreaker</strong>
+          Your costs go up, inflation happens, your skills improve. If you cannot raise rates for years, you are making less money over time. Every retainer needs a way to review rates every year.
+        </div>
+      </div>
+
+      <div class="flag-card red" onclick="toggleFlag(this)">
+        <p class="flag-text">You have to be available 24/7 or on their schedule only</p>
+        <div class="flag-explanation">
+          <strong>Why this is a dealbreaker</strong>
+          You are a freelancer, not an employee. Requiring constant availability without paying for it is them taking advantage of you. You need boundaries around when and how they can reach you.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- YELLOW FLAGS -->
+  <div class="tier-section">
+    <div class="tier-header yellow">
+      <div class="tier-label">Negotiate These</div>
+      <h2 class="tier-title">Yellow Flags</h2>
+      <p class="tier-description">Fixable problems. Go back to the client and negotiate these terms before you sign. If they push back hard on reasonable requests, that tells you something.</p>
+    </div>
+
+    <div class="flags-grid">
+      <div class="flag-card yellow" onclick="toggleFlag(this)">
+        <p class="flag-text">No clause limiting scope creep or defining out of scope work</p>
+        <div class="flag-explanation">
+          <strong>Why you need to negotiate this</strong>
+          Without this protection, every just one more thing request becomes your problem. Get a clause that defines what is included and states everything else is billed separately.
+        </div>
+      </div>
+
+      <div class="flag-card yellow" onclick="toggleFlag(this)">
+        <p class="flag-text">No way to review or raise your rate every year</p>
+        <div class="flag-explanation">
+          <strong>Why you need to negotiate this</strong>
+          Rates should go up over time as your skills improve and costs increase. Add a clause that lets you review and raise rates every year. This protects you from being stuck at the same rate forever.
+        </div>
+      </div>
+
+      <div class="flag-card yellow" onclick="toggleFlag(this)">
+        <p class="flag-text">This retainer would be more than 50% of your monthly income</p>
+        <div class="flag-explanation">
+          <strong>Why you need to negotiate this</strong>
+          One client should never be most of your income. It gives them too much power over you and you are screwed if they leave. Build your business until this retainer is a smaller percentage.
+        </div>
+      </div>
+
+      <div class="flag-card yellow" onclick="toggleFlag(this)">
+        <p class="flag-text">Response time expectations are unrealistic (under 2 hours, weekends, etc)</p>
+        <div class="flag-explanation">
+          <strong>Why you need to negotiate this</strong>
+          Constant availability kills your ability to do deep work or take other clients. Set realistic response windows (24 hours for email, no weekends unless emergency). Clarify what counts as urgent.
+        </div>
+      </div>
+
+      <div class="flag-card yellow" onclick="toggleFlag(this)">
+        <p class="flag-text">No termination clause or notice period over 60 days</p>
+        <div class="flag-explanation">
+          <strong>Why you need to negotiate this</strong>
+          You need an exit strategy. Negotiate a 30 day termination clause for both parties. Anything over 60 days makes you too locked in if the relationship goes bad.
+        </div>
+      </div>
+
+      <div class="flag-card yellow" onclick="toggleFlag(this)">
+        <p class="flag-text">Scope includes skills or work you have never done before</p>
+        <div class="flag-explanation">
+          <strong>Why you need to negotiate this</strong>
+          Learning on the client dime is risky. Either remove those deliverables from scope or charge a premium for the learning curve. Do not promise expertise you do not have.
+        </div>
+      </div>
+
+      <div class="flag-card yellow" onclick="toggleFlag(this)">
+        <p class="flag-text">Payment is monthly in arrears instead of upfront or bi-weekly</p>
+        <div class="flag-explanation">
+          <strong>Why you need to negotiate this</strong>
+          Retainers should be paid at the start of the month for that month of work. Payment in arrears means you are always one month behind and your cash flow suffers. Negotiate upfront payment.
+        </div>
+      </div>
+
+      <div class="flag-card yellow" onclick="toggleFlag(this)">
+        <p class="flag-text">No clear deliverables, just general ongoing support</p>
+        <div class="flag-explanation">
+          <strong>Why you need to negotiate this</strong>
+          Ongoing support is vague and leads to scope creep. Define specific deliverables or cap the hours. Something like 20 hours per month or 4 blog posts per month gives you clear boundaries.
+        </div>
+      </div>
+
+      <div class="flag-card yellow" onclick="toggleFlag(this)">
+        <p class="flag-text">Client expects you to attend all their internal meetings</p>
+        <div class="flag-explanation">
+          <strong>Why you need to negotiate this</strong>
+          Meeting time eats into your billable capacity fast. Clarify which meetings are required and which are optional. Cap meeting hours or make them count toward your monthly hour limit.
+        </div>
+      </div>
+
+      <div class="flag-card yellow" onclick="toggleFlag(this)">
+        <p class="flag-text">Workload estimates seem low for what they are actually asking</p>
+        <div class="flag-explanation">
+          <strong>Why you need to negotiate this</strong>
+          If they say 10 hours a month but the deliverables would take 30, you are being set up to fail or work for free. Push back on unrealistic estimates before you agree.
+        </div>
+      </div>
+
+      <div class="flag-card yellow" onclick="toggleFlag(this)">
+        <p class="flag-text">They want to pay per project instead of true monthly retainer</p>
+        <div class="flag-explanation">
+          <strong>Why you need to negotiate this</strong>
+          Retainer means consistent monthly payment for ongoing work. Per project with a monthly cap is not a retainer, it is just a discounted project rate. Clarify which model you are actually agreeing to.
+        </div>
+      </div>
+
+      <div class="flag-card yellow" onclick="toggleFlag(this)">
+        <p class="flag-text">They do not pay you back for tools or software they require</p>
+        <div class="flag-explanation">
+          <strong>Why you need to negotiate this</strong>
+          If they require specific software or tools you do not already use, they should pay you back. Do not eat the cost of what they need you to buy. Add a clause that says they pay you back for expenses.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GREEN FLAGS -->
+  <div class="tier-section">
+    <div class="tier-header green">
+      <div class="tier-label">Look for These</div>
+      <h2 class="tier-title">Green Flags</h2>
+      <p class="tier-description">Signs of a healthy retainer. The more of these you see, the better. This is what good retainer terms look like.</p>
+    </div>
+
+    <div class="flags-grid">
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">Scope is clearly defined with specific deliverables listed</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          Clear deliverables protect both of you. You know exactly what is expected, they know exactly what they are getting. No room for misunderstanding or scope creep.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">Hours are capped or scope explicitly limits what is included</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          A cap on hours or deliverables means you cannot be exploited. Once you hit the limit, additional work is billed separately. This is how healthy retainers work.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">Either side can end it with 30 days notice or less</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          Both sides have an exit. If the fit is not working, either of you can end it without paying a fee. This shows mutual respect and keeps the relationship healthy.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">Rate is equal to or higher than your project rates</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          Retainers should pay at least as much as project work, ideally more. You are committing capacity and giving them priority access. That should come at a premium, not a discount.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">Contract includes annual rate review or cost of living raise</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          This shows the client understands rates need to adjust over time. You will not be stuck at the same price forever while your costs and expertise grow.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">Clear boundaries around communication hours and response times</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          Defined expectations mean no surprises. You know when you need to be available and when you can disconnect. The client respects that you are not on call 24/7.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">Payment is upfront at the beginning of each month</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          Upfront payment protects your cash flow and shows the client values your work. You are not financing their business. This is standard for healthy retainers.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">Out of scope work is billed separately at your standard rates</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          This clause protects you from scope creep. Anything beyond the agreed deliverables gets quoted and paid for separately. The client understands boundaries.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">You retain rights to show the work in your portfolio</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          Portfolio rights let you use your best work to get better clients. Unless there is a real NDA, you should be able to showcase what you create. This protects your career growth.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">Client has paid you on time consistently in the past</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          Past payment behavior is the best predictor of future payment behavior. If they have always paid on time, a retainer is less risky. Reliable clients make reliable retainer partners.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">Retainer is less than 40% of your total monthly income</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          Diversified income protects you. If this client is only part of your revenue, losing them would not destroy your business. You maintain power in the relationship.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">They respect your working hours and do not expect instant replies</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          Professional boundaries are healthy. Clients who respect your time and understand you have other work are easier to work with long term. This indicates mutual respect.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">Contract specifies you are an independent contractor, not an employee</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          Making it clear you are a contractor protects both of you legally and for taxes. You keep your independence and flexibility while they get the work they need. No confusion about the relationship.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">They offer a trial period (1-3 months) before locking into longer terms</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          A trial period lets both sides test the fit before committing long term. This shows confidence in the relationship and reduces risk for everyone. Smart clients do this.
+        </div>
+      </div>
+
+      <div class="flag-card green" onclick="toggleFlag(this)">
+        <p class="flag-text">You genuinely like working with this client and trust them</p>
+        <div class="flag-explanation">
+          <strong>Why this is a good sign</strong>
+          Gut feeling matters. If you trust them and enjoy the work, a retainer can be great. If something feels off, listen to that. You will be working with them monthly. Make sure you actually want to.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Want more resources like this? Join my newsletter for templates, systems, and the kind of business advice that actually works.</p>
+  <a href="https://sabrinassantiago.myflodesk.com/waitlist" class="footer-link">Join the Waitlist</a>
+  <p style="margin-top: 40px; font-size: 12px; opacity: 0.6;">© Sabrina S. Santiago. This resource was created exclusively for my community. Please do not redistribute or share without permission.</p>
+</div>
+
+<script>
+function toggleFlag(card) {
+  card.classList.toggle('expanded');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Questions to Ask Your Accountant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --red: #a70101;
+    --black: #1a1a1a;
+    --white: #ffffff;
+    --cream: #f7f4f0;
+    --cream-dark: #ede9e3;
+    --gray: #c8c2ba;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--black);
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--white);
+    border-bottom: 8px solid var(--black);
+    padding: 80px 40px 60px;
+  }
+
+  .header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(42px, 7vw, 72px);
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+
+  .title em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  .intro {
+    font-size: 16px;
+    color: #6b6560;
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  /* MAIN CONTENT */
+  .content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* INTRO BOX */
+  .intro-box {
+    background: var(--black);
+    color: var(--white);
+    padding: 32px 40px;
+    margin-bottom: 60px;
+  }
+
+  .intro-box h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+
+  .intro-box p {
+    font-size: 15px;
+    line-height: 1.7;
+    opacity: 0.9;
+    margin-bottom: 12px;
+  }
+
+  .intro-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* CATEGORY */
+  .category {
+    margin-bottom: 48px;
+  }
+
+  .category:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .category-header {
+    background: var(--cream-dark);
+    padding: 20px 28px;
+    margin-bottom: 20px;
+    border-left: 6px solid var(--red);
+  }
+
+  .category-number {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+
+  .category-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px;
+    line-height: 1.1;
+    font-weight: 400;
+    color: var(--black);
+  }
+
+  /* QUESTIONS */
+  .question-item {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 28px 32px;
+    margin-bottom: 16px;
+  }
+
+  .question-text {
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 12px;
+  }
+
+  .question-why {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #4a4440;
+    padding-left: 20px;
+    border-left: 3px solid var(--cream-dark);
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--black);
+    color: var(--white);
+    padding: 60px 40px;
+    text-align: center;
+  }
+
+  .footer p {
+    font-size: 14px;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto 20px;
+    line-height: 1.7;
+  }
+
+  .footer-link {
+    display: inline-block;
+    background: var(--red);
+    color: var(--white);
+    padding: 14px 32px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    transition: background 0.2s ease;
+  }
+
+  .footer-link:hover {
+    background: #8b0101;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .header {
+      padding: 60px 24px 40px;
+    }
+
+    .content {
+      padding: 40px 24px 80px;
+    }
+
+    .intro-box {
+      padding: 24px 28px;
+    }
+
+    .question-item {
+      padding: 24px;
+    }
+
+    .category-header {
+      padding: 16px 24px;
+    }
+
+    .category-title {
+      font-size: 26px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="eyebrow">Stop Winging Your Taxes</div>
+    <h1 class="title">Questions to Ask <em>Your Accountant</em></h1>
+    <p class="intro">One hour with an accountant can save you thousands of dollars and thousands of tears. Take this list to your first meeting and get real answers.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="intro-box">
+    <h3>Before You Go</h3>
+    <p>These questions are for YOUR accountant who knows YOUR country's tax rules. Tax laws are different everywhere. What works in the US does not work in Brazil does not work in the UK.</p>
+    <p>Do not skip the meeting just because you are scared of the answers. The tax bill is coming either way. Better to know now than panic later.</p>
+    <p>Bring a notebook. Write down the answers. You will forget half of this the second you leave.</p>
+  </div>
+
+  <!-- CATEGORY 1: THE BASICS -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-number">Category 01</div>
+      <h2 class="category-title">The Basics</h2>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">What percentage of my income should I set aside for taxes?</div>
+      <div class="question-why">This is the most important number you need to know. Without it, you are guessing. Get a specific percentage based on your income level and where you live. Put that much aside every single time you get paid.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">Do I pay taxes quarterly or once a year?</div>
+      <div class="question-why">Some countries require quarterly payments. Others let you pay once a year. If you are supposed to pay quarterly and you do not, you get hit with fees. Find out your schedule and put the dates in your calendar right now.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">What happens if I miss a payment or pay late?</div>
+      <div class="question-why">Know the consequences before they happen. Late fees, interest, penalties. Understanding the cost of being late helps you prioritize paying on time.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">Am I required to register my business or can I work under my own name?</div>
+      <div class="question-why">In some places you need to register as a business. In others you can just work as yourself. This affects your taxes, legal protection, and how you invoice clients. Get clear on what is required in your situation.</div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 2: DEDUCTIONS -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-number">Category 02</div>
+      <h2 class="category-title">What You Can Write Off</h2>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">What business costs can I write off?</div>
+      <div class="question-why">Software, tools, equipment, office supplies, website hosting. Ask for a full list of what counts as a business cost in your country. You are probably missing things you could be writing off.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">Can I write off a home office? If yes, how much?</div>
+      <div class="question-why">If you work from home, you might be able to write off part of your rent or mortgage. But the rules are specific. Some countries let you write off a percentage, others require a dedicated room. Get the exact rules for where you live.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">Can I write off meals or travel when I meet with clients?</div>
+      <div class="question-why">Business meals and travel might be deductible. Or they might not. Or only partially. The rules vary wildly by country. Find out what you can claim and what records you need to keep.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">What about my phone and internet? Can I write those off?</div>
+      <div class="question-why">If you use your phone and internet for work, you might be able to write off part of the cost. Ask what percentage you can claim and what proof you need to keep.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">What receipts and records do I actually need to keep?</div>
+      <div class="question-why">Some things need receipts. Some do not. Some need detailed records. Find out exactly what you need to save and for how long. This prevents you from scrambling during an audit.</div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 3: BOOKKEEPING -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-number">Category 03</div>
+      <h2 class="category-title">How to Track Everything</h2>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">Do I need separate business and personal bank accounts?</div>
+      <div class="question-why">Mixing money makes taxes a nightmare. Find out if you are legally required to separate them or if it is just smart to do. Either way, get a clear answer on best practice.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">What bookkeeping software do you recommend for someone like me?</div>
+      <div class="question-why">Your accountant has seen what works and what does not. Get their recommendation based on your country and business size. Do not pick software randomly and hope it is right.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">How often should I be updating my books?</div>
+      <div class="question-why">Monthly? Quarterly? After every payment? Find out how often you need to track income and costs so you are not scrambling at tax time.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">What financial reports should I be running for my business?</div>
+      <div class="question-why">Profit and loss statements, cash flow reports, balance sheets. Ask which ones matter for your situation and how often to look at them. This helps you actually understand if your business is healthy.</div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 4: PAYING YOURSELF -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-number">Category 04</div>
+      <h2 class="category-title">Getting Money Out</h2>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">How should I pay myself? Set salary or just transfer money when I need it?</div>
+      <div class="question-why">The way you pay yourself affects your taxes. Some structures require a regular salary. Others let you take money out whenever. Get clear on what makes sense for you.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">Should I keep money in the business or take it all out?</div>
+      <div class="question-why">Leaving money in your business account might have tax benefits. Or it might not. This depends on your country and business structure. Ask what is smarter for your situation.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">What is the most tax smart way to handle a really good month?</div>
+      <div class="question-why">When you make way more than usual, taking it all out might push you into a higher tax bracket. Ask if there are smarter ways to handle big paydays.</div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 5: MISTAKES TO AVOID -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-number">Category 05</div>
+      <h2 class="category-title">What Not to Do</h2>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">What are the most common mistakes you see freelancers make?</div>
+      <div class="question-why">Your accountant has seen it all. Ask them what trips people up most often so you can avoid those exact mistakes.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">What would get me audited?</div>
+      <div class="question-why">Some things raise red flags. Big deductions, certain types of costs, inconsistent income reporting. Find out what makes tax authorities pay attention so you can either avoid it or make sure you have proof.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">If I get audited, what happens? What do I do?</div>
+      <div class="question-why">Knowing the process makes it less scary. Ask what an audit actually looks like, what they ask for, and what your accountant does to help. This is also when you find out if your accountant will represent you or if you are on your own.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">What records do I legally have to keep and for how long?</div>
+      <div class="question-why">Some countries require 3 years. Some 7 years. Some forever. Know exactly what you have to keep so you are not throwing away stuff you might need later.</div>
+    </div>
+  </div>
+
+  <!-- CATEGORY 6: PLANNING AHEAD -->
+  <div class="category">
+    <div class="category-header">
+      <div class="category-number">Category 06</div>
+      <h2 class="category-title">Thinking Long Term</h2>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">Should I be putting money into retirement? How does that affect my taxes?</div>
+      <div class="question-why">Retirement contributions might lower your tax bill now. Or they might not. Find out what retirement accounts are available for freelancers in your country and if they make sense for you.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">At what income level should I change my business structure?</div>
+      <div class="question-why">Working under your own name is fine at first. But once you hit a certain income, forming a company might save you money. Ask at what point you should consider changing and what the benefits would be.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">When should I talk to you again? Once a year? More often?</div>
+      <div class="question-why">Some accountants want quarterly check ins. Others only need to see you at tax time. Find out how often they recommend you meet based on your situation.</div>
+    </div>
+
+    <div class="question-item">
+      <div class="question-text">What should I do differently next year based on this year?</div>
+      <div class="question-why">After your first year, your accountant can see patterns. Ask what you should change, what you should track better, or what moves would save you money going forward.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Want more resources like this? Join my newsletter for templates, systems, and the kind of business advice that actually works.</p>
+  <a href="https://sabrinassantiago.myflodesk.com/waitlist" class="footer-link">Join the Waitlist</a>
+  <p style="margin-top: 40px; font-size: 12px; opacity: 0.6;">© Sabrina S. Santiago. This resource was created exclusively for my community. Please do not redistribute or share without permission.</p>
+</div>
+
+</body>
+</html>
