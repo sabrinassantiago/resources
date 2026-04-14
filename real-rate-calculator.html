@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Rate Calculator - Sabrina S. Santiago</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #f7f4f0;
+            --black: #1a1a1a;
+            --red: #a70101;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cream);
+            color: var(--black);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 48px;
+            color: var(--black);
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--black);
+            opacity: 0.7;
+            margin-bottom: 30px;
+        }
+
+        .intro {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.02);
+            border-left: 3px solid var(--red);
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--black);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            border: 2px solid var(--black);
+            background: white;
+            color: var(--black);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--red);
+        }
+
+        .time-breakdown {
+            background: white;
+            padding: 30px;
+            border-left: 3px solid var(--red);
+            margin-bottom: 30px;
+        }
+
+        .time-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+        }
+
+        .time-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .time-item-label {
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .time-item-suggested {
+            font-size: 12px;
+            color: var(--red);
+            margin-right: 15px;
+            font-style: italic;
+        }
+
+        .time-item-input {
+            width: 80px;
+            padding: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            border: 1px solid var(--black);
+            background: white;
+            text-align: right;
+        }
+
+        .calculate-button {
+            width: 100%;
+            background: var(--black);
+            color: var(--cream);
+            border: none;
+            padding: 18px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .calculate-button:hover {
+            background: var(--red);
+        }
+
+        .results {
+            display: none;
+            margin-top: 50px;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .result-card {
+            background: white;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-left: 3px solid var(--red);
+        }
+
+        .result-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            opacity: 0.7;
+        }
+
+        .result-value {
+            font-family: 'Instrument Serif', serif;
+            font-size: 48px;
+            color: var(--black);
+            margin-bottom: 10px;
+        }
+
+        .result-value.highlight {
+            color: var(--red);
+        }
+
+        .result-description {
+            font-size: 15px;
+            line-height: 1.8;
+            margin-top: 15px;
+        }
+
+        .truth-bomb {
+            background: rgba(167, 1, 1, 0.05);
+            padding: 40px;
+            border-left: 3px solid var(--red);
+            margin-top: 40px;
+        }
+
+        .truth-bomb-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--red);
+        }
+
+        .truth-bomb-text {
+            font-size: 16px;
+            line-height: 1.9;
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(26, 26, 26, 0.2);
+            font-size: 14px;
+        }
+
+        .footer p {
+            margin-bottom: 15px;
+        }
+
+        .footer a {
+            color: var(--black);
+            text-decoration: none;
+            border-bottom: 1px solid var(--black);
+        }
+
+        .footer a:hover {
+            color: var(--red);
+            border-bottom-color: var(--red);
+        }
+
+        .newsletter-button {
+            display: inline-block;
+            background: var(--red);
+            color: white !important;
+            padding: 14px 35px;
+            text-decoration: none;
+            border: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            margin: 10px 0;
+            border-radius: 30px;
+            border-bottom: none !important;
+        }
+
+        .newsletter-button:hover {
+            background: var(--black);
+            color: white !important;
+            border-bottom: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 36px;
+            }
+
+            .result-value {
+                font-size: 36px;
+            }
+
+            .time-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .time-item-suggested {
+                margin: 5px 0;
+            }
+
+            .time-item-input {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Real Rate Calculator</h1>
+            <p class="subtitle">What you think you make vs what you actually make</p>
+        </div>
+
+        <div class="intro">
+            <p>Your hourly rate is a lie. You quote 30 hours of work at $100/hour and think you are making $100/hour. But you are not counting the emails, the meetings, the revisions, the admin work, the invoicing, and the payment follow ups.</p>
+            <p style="margin-top: 15px;">This calculator shows you what you are actually making per hour. The number is probably lower than you think. Way lower.</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">The Project</h2>
+            
+            <div class="input-group">
+                <label class="input-label" for="projectFee">What are you charging for this project?</label>
+                <input type="number" id="projectFee" class="input-field" placeholder="3000" min="0">
+            </div>
+
+            <div class="input-group">
+                <label class="input-label" for="billableHours">How many hours did you estimate for the actual work?</label>
+                <input type="number" id="billableHours" class="input-field" placeholder="30" min="0" step="0.5">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">The Real Time Breakdown</h2>
+            <p style="margin-bottom: 20px; font-size: 14px; opacity: 0.8;">These are industry averages based on what freelancers actually spend time on. Adjust them if your experience is different, but be honest with yourself.</p>
+            
+            <div class="time-breakdown">
+                <div class="time-item">
+                    <span class="time-item-label">Client emails and messages</span>
+                    <span class="time-item-suggested" id="emailsSuggested">Suggested: 4.5 hrs</span>
+                    <input type="number" id="emailsHours" class="time-item-input" value="4.5" min="0" step="0.5">
+                </div>
+
+                <div class="time-item">
+                    <span class="time-item-label">Meetings and calls</span>
+                    <span class="time-item-suggested" id="meetingsSuggested">Suggested: 3 hrs</span>
+                    <input type="number" id="meetingsHours" class="time-item-input" value="3" min="0" step="0.5">
+                </div>
+
+                <div class="time-item">
+                    <span class="time-item-label">Revisions and edits</span>
+                    <span class="time-item-suggested" id="revisionsSuggested">Suggested: 7.5 hrs</span>
+                    <input type="number" id="revisionsHours" class="time-item-input" value="7.5" min="0" step="0.5">
+                </div>
+
+                <div class="time-item">
+                    <span class="time-item-label">Project management and admin</span>
+                    <span class="time-item-suggested" id="adminSuggested">Suggested: 3 hrs</span>
+                    <input type="number" id="adminHours" class="time-item-input" value="3" min="0" step="0.5">
+                </div>
+
+                <div class="time-item">
+                    <span class="time-item-label">Invoicing and payment follow ups</span>
+                    <span class="time-item-suggested" id="invoicingSuggested">Suggested: 1.5 hrs</span>
+                    <input type="number" id="invoicingHours" class="time-item-input" value="1.5" min="0" step="0.5">
+                </div>
+            </div>
+        </div>
+
+        <button class="calculate-button" onclick="calculate()">Calculate My Real Rate</button>
+
+        <div class="results" id="results">
+            <div class="result-card">
+                <div class="result-label">What you thought you were making</div>
+                <div class="result-value" id="thoughtRate">$100/hour</div>
+                <div class="result-description">Based on your project fee divided by your estimated billable hours only.</div>
+            </div>
+
+            <div class="result-card">
+                <div class="result-label">What you are actually making</div>
+                <div class="result-value highlight" id="actualRate">$61/hour</div>
+                <div class="result-description">Based on your project fee divided by the total hours you actually spent, including all the shit you forgot to count.</div>
+            </div>
+
+            <div class="result-card">
+                <div class="result-label">The hidden hours</div>
+                <div class="result-value highlight" id="hiddenHours">19.5 hours</div>
+                <div class="result-description">This is how much extra time you spent on this project that you did not account for when you quoted it. This is why you are always exhausted and never have enough time.</div>
+            </div>
+
+            <div class="truth-bomb">
+                <h3 class="truth-bomb-title">What This Actually Means</h3>
+                <p class="truth-bomb-text">You are working <span id="percentMore" style="font-weight: 700;">65%</span> more hours than you thought. Your effective hourly rate is <span id="percentLess" style="font-weight: 700;">39%</span> lower than what you think you are charging.</p>
+                <p class="truth-bomb-text">Every freelancer has this gap. The difference between good freelancers and broke freelancers is that good freelancers know the gap exists and price accordingly.</p>
+                <p class="truth-bomb-text">Now you know. Next time you quote a project, come back to this tool and see what your rate actually needs to be.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>This calculator is part of a newsletter about building a freelance business that does not make you want to fake your own death.</p>
+            <p><a href="https://sabrinassantiago.myflodesk.com/yfn" class="newsletter-button">Join the Newsletter</a></p>
+            <p style="margin-top: 30px;">Made with ♥ by your favorite freelancer, <a href="https://www.linkedin.com/in/sabrss/">Sabrina S. Santiago</a></p>
+            <p style="font-size: 12px; opacity: 0.6; margin-top: 20px;">© 2026 Sabrina S. Santiago</p>
+        </div>
+    </div>
+
+    <script>
+        // Update suggested hours when billable hours change
+        document.getElementById('billableHours').addEventListener('input', updateSuggestions);
+
+        function updateSuggestions() {
+            const billableHours = parseFloat(document.getElementById('billableHours').value) || 0;
+            
+            const emails = (billableHours * 0.15).toFixed(1);
+            const meetings = (billableHours * 0.10).toFixed(1);
+            const revisions = (billableHours * 0.25).toFixed(1);
+            const admin = (billableHours * 0.10).toFixed(1);
+            const invoicing = (billableHours * 0.05).toFixed(1);
+
+            document.getElementById('emailsSuggested').textContent = `Suggested: ${emails} hrs`;
+            document.getElementById('meetingsSuggested').textContent = `Suggested: ${meetings} hrs`;
+            document.getElementById('revisionsSuggested').textContent = `Suggested: ${revisions} hrs`;
+            document.getElementById('adminSuggested').textContent = `Suggested: ${admin} hrs`;
+            document.getElementById('invoicingSuggested').textContent = `Suggested: ${invoicing} hrs`;
+
+            document.getElementById('emailsHours').value = emails;
+            document.getElementById('meetingsHours').value = meetings;
+            document.getElementById('revisionsHours').value = revisions;
+            document.getElementById('adminHours').value = admin;
+            document.getElementById('invoicingHours').value = invoicing;
+        }
+
+        function calculate() {
+            const projectFee = parseFloat(document.getElementById('projectFee').value);
+            const billableHours = parseFloat(document.getElementById('billableHours').value);
+            
+            const emailsHours = parseFloat(document.getElementById('emailsHours').value) || 0;
+            const meetingsHours = parseFloat(document.getElementById('meetingsHours').value) || 0;
+            const revisionsHours = parseFloat(document.getElementById('revisionsHours').value) || 0;
+            const adminHours = parseFloat(document.getElementById('adminHours').value) || 0;
+            const invoicingHours = parseFloat(document.getElementById('invoicingHours').value) || 0;
+
+            if (!projectFee || !billableHours) {
+                alert('Please fill in the project fee and billable hours.');
+                return;
+            }
+
+            const totalHours = billableHours + emailsHours + meetingsHours + revisionsHours + adminHours + invoicingHours;
+            const hiddenHours = totalHours - billableHours;
+
+            const thoughtRate = projectFee / billableHours;
+            const actualRate = projectFee / totalHours;
+
+            const percentMore = ((hiddenHours / billableHours) * 100).toFixed(0);
+            const percentLess = (((thoughtRate - actualRate) / thoughtRate) * 100).toFixed(0);
+
+            document.getElementById('thoughtRate').textContent = `$${thoughtRate.toFixed(0)}/hour`;
+            document.getElementById('actualRate').textContent = `$${actualRate.toFixed(0)}/hour`;
+            document.getElementById('hiddenHours').textContent = `${hiddenHours.toFixed(1)} hours`;
+            document.getElementById('percentMore').textContent = `${percentMore}%`;
+            document.getElementById('percentLess').textContent = `${percentLess}%`;
+
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>
