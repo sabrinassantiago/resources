@@ -15,7 +15,7 @@
         }
 
         :root {
-            --cream: #f7f4f0;
+            --cream: #fdfcf7;
             --black: #1a1a1a;
             --red: #a70101;
         }
@@ -56,9 +56,10 @@
             font-size: 16px;
             line-height: 1.8;
             margin-bottom: 40px;
-            padding: 30px;
-            background: rgba(0, 0, 0, 0.02);
-            border-left: 3px solid var(--red);
+            padding: 40px;
+            background: var(--black);
+            color: var(--cream);
+            border-left: 4px solid var(--red);
         }
 
         .section {
@@ -103,7 +104,7 @@
         .time-breakdown {
             background: white;
             padding: 30px;
-            border-left: 3px solid var(--red);
+            border: 3px solid var(--red);
             margin-bottom: 30px;
         }
 
@@ -113,7 +114,7 @@
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+            border-bottom: 1px solid #e8e0d5;
         }
 
         .time-item:last-child {
@@ -175,7 +176,7 @@
             background: white;
             padding: 40px;
             margin-bottom: 30px;
-            border-left: 3px solid var(--red);
+            border: 3px solid var(--red);
         }
 
         .result-label {
@@ -204,9 +205,10 @@
         }
 
         .truth-bomb {
-            background: rgba(167, 1, 1, 0.05);
+            background: var(--black);
+            color: var(--cream);
             padding: 40px;
-            border-left: 3px solid var(--red);
+            border: 4px solid var(--red);
             margin-top: 40px;
         }
 
@@ -227,7 +229,7 @@
             text-align: center;
             margin-top: 80px;
             padding-top: 40px;
-            border-top: 1px solid rgba(26, 26, 26, 0.2);
+            border-top: 1px solid #e8e0d5;
             font-size: 14px;
         }
 
@@ -300,7 +302,7 @@
 
         <div class="intro">
             <p>Your hourly rate is a lie. You quote 30 hours of work at $100/hour and think you are making $100/hour. But you are not counting the emails, the meetings, the revisions, the admin work, the invoicing, and the payment follow ups.</p>
-            <p style="margin-top: 15px;">This calculator shows you what you are actually making per hour. The number is probably lower than you think. Way lower.</p>
+            <p style="margin-top: 15px;">This calculator shows you what you are actually making per hour. The number is lower than you think. Way lower.</p>
         </div>
 
         <div class="section">
@@ -378,14 +380,14 @@
             <div class="truth-bomb">
                 <h3 class="truth-bomb-title">What This Actually Means</h3>
                 <p class="truth-bomb-text">You are working <span id="percentMore" style="font-weight: 700;">65%</span> more hours than you thought. Your effective hourly rate is <span id="percentLess" style="font-weight: 700;">39%</span> lower than what you think you are charging.</p>
-                <p class="truth-bomb-text">Every freelancer has this gap. The difference between good freelancers and broke freelancers is that good freelancers know the gap exists and price accordingly.</p>
-                <p class="truth-bomb-text">Now you know. Next time you quote a project, come back to this tool and see what your rate actually needs to be.</p>
+                <p class="truth-bomb-text">This is not a you problem. This is a math problem. Every freelancer has this gap. The difference between good freelancers and broke freelancers is that good freelancers know the gap exists and price accordingly.</p>
+                <p class="truth-bomb-text">Now you know. Next time you quote a project, multiply your estimated hours by 1.65 and see what your rate actually needs to be. Or better yet, stop charging by the hour and start charging for the value you deliver.</p>
             </div>
         </div>
 
         <div class="footer">
             <p>This calculator is part of a newsletter about building a freelance business that does not make you want to fake your own death.</p>
-            <p><a href="https://sabrinassantiago.myflodesk.com/yfn" class="newsletter-button">Join the Newsletter</a></p>
+            <p><a href="https://sabrinassantiago.myflodesk.com/resources" class="newsletter-button">Join the Newsletter</a></p>
             <p style="margin-top: 30px;">Made with ♥ by your favorite freelancer, <a href="https://www.linkedin.com/in/sabrss/">Sabrina S. Santiago</a></p>
             <p style="font-size: 12px; opacity: 0.6; margin-top: 20px;">© 2026 Sabrina S. Santiago</p>
         </div>
