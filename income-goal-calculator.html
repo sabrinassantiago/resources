@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Annual Income Goal Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #a70101;
+  --black: #1a1a1a;
+  --white: #ffffff;
+  --cream: #f7f4f0;
+  --cream-dark: #ede9e3;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--cream);
+  font-family: 'Inter', sans-serif;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 48px;
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #666;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.calculator-panel {
+  background: var(--white);
+  border: 4px solid var(--black);
+  padding: 40px;
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 24px;
+}
+
+.monthly-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #666;
+  font-weight: 700;
+}
+
+.section-desc {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 12px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.input-label {
+  font-size: 14px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: var(--cream);
+  border: 2px solid var(--cream-dark);
+  padding: 0 10px;
+  transition: border-color 0.2s;
+}
+
+.input-wrapper:focus-within {
+  border-color: var(--red);
+}
+
+.currency {
+  font-weight: 600;
+  color: #666;
+  margin-right: 4px;
+  font-size: 14px;
+}
+
+.input-field {
+  border: none;
+  background: transparent;
+  padding: 10px 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  width: 100%;
+  text-align: right;
+}
+
+.input-field:focus {
+  outline: none;
+}
+
+.add-line-btn {
+  background: none;
+  border: none;
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 6px 0;
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.add-line-btn:hover {
+  color: var(--black);
+}
+
+.annual-section {
+  background: var(--cream);
+  padding: 20px;
+  margin-top: 16px;
+  border: 2px solid var(--cream-dark);
+}
+
+.annual-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--red);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.results-panel {
+  background: var(--black);
+  color: var(--white);
+  border: 4px solid var(--black);
+  padding: 40px;
+  position: sticky;
+  top: 20px;
+}
+
+.results-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 28px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.result-box {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.result-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  opacity: 0.7;
+}
+
+.result-value {
+  font-family: 'Instrument Serif', serif;
+  font-size: 42px;
+  color: var(--red);
+  line-height: 1;
+}
+
+.result-value.large {
+  font-size: 56px;
+}
+
+.breakdown {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.breakdown-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.breakdown-item:last-child {
+  border-bottom: none;
+}
+
+.breakdown-label {
+  font-size: 14px;
+}
+
+.breakdown-value {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.chart-container {
+  margin-top: 24px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chart-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.chart {
+  display: flex;
+  height: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.chart-segment {
+  transition: all 0.3s;
+}
+
+.chart-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+.buffer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.buffer-box {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 16px;
+  text-align: center;
+}
+
+.buffer-months {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+
+.buffer-amount {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.btn {
+  flex: 1;
+  padding: 14px 20px;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--red);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 1200px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .results-panel {
+    position: relative;
+    top: 0;
+  }
+  
+  .buffer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 36px;
+  }
+  
+  .calculator-panel,
+  .results-panel {
+    padding: 24px;
+  }
+  
+  .input-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  
+  .chart-legend {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1 class="title">Your Annual Income Goal</h1>
+    <p class="subtitle">Enter your monthly costs, then add what you want to save and invest. The system calculates your yearly goal.</p>
+  </div>
+  
+  <div class="main-grid">
+    <!-- LEFT: Calculator Inputs -->
+    <div class="calculator-panel">
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Personal Costs</h2>
+          <span class="monthly-label">Monthly</span>
+        </div>
+        <p class="section-desc">Rent, food, transport, utilities, basic living</p>
+        
+        <div id="personal-costs">
+          <div class="input-row">
+            <div class="input-label">Rent / Mortgage</div>
+            <div class="input-wrapper">
+              <span class="currency">$</span>
+              <input type="number" class="input-field personal-monthly" value="0" min="0">
+            </div>
+          </div>
+          
+          <div class="input-row">
+            <div class="input-label">Food & Groceries</div>
+            <div class="input-wrapper">
+              <span class="currency">$</span>
+              <input type="number" class="input-field personal-monthly" value="0" min="0">
+            </div>
+          </div>
+          
+          <div class="input-row">
+            <div class="input-label">Transportation</div>
+            <div class="input-wrapper">
+              <span class="currency">$</span>
+              <input type="number" class="input-field personal-monthly" value="0" min="0">
+            </div>
+          </div>
+          
+          <div class="input-row">
+            <div class="input-label">Utilities</div>
+            <div class="input-wrapper">
+              <span class="currency">$</span>
+              <input type="number" class="input-field personal-monthly" value="0" min="0">
+            </div>
+          </div>
+          
+          <div class="input-row">
+            <div class="input-label">Healthcare & Insurance</div>
+            <div class="input-wrapper">
+              <span class="currency">$</span>
+              <input type="number" class="input-field personal-monthly" value="0" min="0">
+            </div>
+          </div>
+          
+          <div class="input-row">
+            <div class="input-label">Phone</div>
+            <div class="input-wrapper">
+              <span class="currency">$</span>
+              <input type="number" class="input-field personal-monthly" value="0" min="0">
+            </div>
+          </div>
+          
+          <div class="input-row">
+            <div class="input-label">Everything Else</div>
+            <div class="input-wrapper">
+              <span class="currency">$</span>
+              <input type="number" class="input-field personal-monthly" value="0" min="0">
+            </div>
+          </div>
+        </div>
+        
+        <button class="add-line-btn" onclick="addPersonalLine()">+ Add Cost</button>
+      </div>
+      
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Business Costs</h2>
+          <span class="monthly-label">Monthly</span>
+        </div>
+        <p class="section-desc">Taxes, tools, software, accounting, cash flow buffer</p>
+        
+        <div id="business-costs">
+          <div class="input-row">
+            <div class="input-label">Tax Rate (income + self-employment)</div>
+            <div class="input-wrapper">
+              <input type="number" class="input-field" id="tax-rate" value="30" min="0" max="100" step="1" style="text-align: center;">
+              <span class="currency" style="margin-left: 4px;">%</span>
+            </div>
+          </div>
+          
+          <div class="input-row">
+            <div class="input-label">Accounting & Bookkeeping</div>
+            <div class="input-wrapper">
+              <span class="currency">$</span>
+              <input type="number" class="input-field business-monthly" value="0" min="0">
+            </div>
+          </div>
+          
+          <div class="input-row">
+            <div class="input-label">Software & Tools</div>
+            <div class="input-wrapper">
+              <span class="currency">$</span>
+              <input type="number" class="input-field business-monthly" value="0" min="0">
+            </div>
+          </div>
+          
+          <div class="input-row">
+            <div class="input-label">Education & Training</div>
+            <div class="input-wrapper">
+              <span class="currency">$</span>
+              <input type="number" class="input-field business-monthly" value="0" min="0">
+            </div>
+          </div>
+          
+          <div class="input-row">
+            <div class="input-label">Marketing</div>
+            <div class="input-wrapper">
+              <span class="currency">$</span>
+              <input type="number" class="input-field business-monthly" value="0" min="0">
+            </div>
+          </div>
+          
+          <div class="input-row">
+            <div class="input-label">Cash Flow Buffer</div>
+            <div class="input-wrapper">
+              <span class="currency">$</span>
+              <input type="number" class="input-field business-monthly" value="0" min="0">
+            </div>
+          </div>
+          
+          <div class="input-row">
+            <div class="input-label">Outsourcing</div>
+            <div class="input-wrapper">
+              <span class="currency">$</span>
+              <input type="number" class="input-field business-monthly" value="0" min="0">
+            </div>
+          </div>
+        </div>
+        
+        <button class="add-line-btn" onclick="addBusinessLine()">+ Add Cost</button>
+      </div>
+      
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Savings Goals</h2>
+          <span class="monthly-label">Annual</span>
+        </div>
+        <p class="section-desc">How much you want saved at the end of the year</p>
+        
+        <div class="input-row">
+          <div class="input-label">Savings Goal (end of year)</div>
+          <div class="input-wrapper">
+            <span class="currency">$</span>
+            <input type="number" class="input-field" id="savings-goal" value="0" min="0">
+          </div>
+        </div>
+        
+        <div class="input-row">
+          <div class="input-label">Current Savings</div>
+          <div class="input-wrapper">
+            <span class="currency">$</span>
+            <input type="number" class="input-field" id="savings-current" value="0" min="0">
+          </div>
+        </div>
+        
+        <div class="annual-section">
+          <div class="input-row">
+            <div class="input-label" style="font-weight: 700; color: var(--red);">Gap to Reach Goal</div>
+            <div class="input-wrapper" style="background: #fff3cd;">
+              <span class="currency">$</span>
+              <input type="number" class="input-field" id="savings-gap" value="0" readonly style="font-weight: 700;">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Investment Goals</h2>
+          <span class="monthly-label">Annual</span>
+        </div>
+        <p class="section-desc">How much you want invested at the end of the year</p>
+        
+        <div class="input-row">
+          <div class="input-label">Investment Goal (end of year)</div>
+          <div class="input-wrapper">
+            <span class="currency">$</span>
+            <input type="number" class="input-field" id="investments-goal" value="0" min="0">
+          </div>
+        </div>
+        
+        <div class="input-row">
+          <div class="input-label">Current Investments</div>
+          <div class="input-wrapper">
+            <span class="currency">$</span>
+            <input type="number" class="input-field" id="investments-current" value="0" min="0">
+          </div>
+        </div>
+        
+        <div class="annual-section">
+          <div class="input-row">
+            <div class="input-label" style="font-weight: 700; color: var(--red);">Gap to Reach Goal</div>
+            <div class="input-wrapper" style="background: #fff3cd;">
+              <span class="currency">$</span>
+              <input type="number" class="input-field" id="investments-gap" value="0" readonly style="font-weight: 700;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+    <!-- RIGHT: Results -->
+    <div class="results-panel">
+      <h2 class="results-title">Your Numbers</h2>
+      
+      <div class="result-box">
+        <div class="result-label">Annual Income Goal</div>
+        <div class="result-value large" id="annual-goal">$0</div>
+      </div>
+      
+      <div class="result-box">
+        <div class="result-label">Monthly Salary Target</div>
+        <div class="result-value" id="monthly-salary">$0</div>
+      </div>
+      
+      <div class="breakdown">
+        <div class="breakdown-title">Emergency Fund Targets</div>
+        <div class="buffer-grid">
+          <div class="buffer-box">
+            <div class="buffer-months">3</div>
+            <div class="result-label">Months</div>
+            <div class="buffer-amount" id="buffer-3">$0</div>
+          </div>
+          <div class="buffer-box">
+            <div class="buffer-months">6</div>
+            <div class="result-label">Months</div>
+            <div class="buffer-amount" id="buffer-6">$0</div>
+          </div>
+          <div class="buffer-box">
+            <div class="buffer-months">12</div>
+            <div class="result-label">Months</div>
+            <div class="buffer-amount" id="buffer-12">$0</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="breakdown">
+        <div class="breakdown-title">Cost Breakdown</div>
+        <div class="breakdown-item">
+          <span class="breakdown-label">Personal Costs (Annual)</span>
+          <span class="breakdown-value" id="personal-annual">$0</span>
+        </div>
+        <div class="breakdown-item">
+          <span class="breakdown-label">Business Costs (Annual)</span>
+          <span class="breakdown-value" id="business-annual">$0</span>
+        </div>
+        <div class="breakdown-item">
+          <span class="breakdown-label">Taxes</span>
+          <span class="breakdown-value" id="taxes-annual">$0</span>
+        </div>
+        <div class="breakdown-item">
+          <span class="breakdown-label">Savings + Investments</span>
+          <span class="breakdown-value" id="profit-annual">$0</span>
+        </div>
+      </div>
+      
+      <div class="chart-container">
+        <div class="chart-title">Where Your Money Goes</div>
+        <div class="chart" id="percentageChart"></div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-color" style="background: #ff6b6b;"></div>
+            <span id="personal-pct">Personal 0%</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #4ecdc4;"></div>
+            <span id="business-pct">Business 0%</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #ff9f43;"></div>
+            <span id="taxes-pct">Taxes 0%</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #ffe66d;"></div>
+            <span id="savings-pct">Savings 0%</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #b19cd9;"></div>
+            <span id="investments-pct">Investments 0%</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="resetAll()">Reset</button>
+        <button class="btn btn-primary" onclick="saveResults()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function calculate() {
+  // Get monthly personal costs
+  const personalMonthly = Array.from(document.querySelectorAll('.personal-monthly'))
+    .reduce((sum, input) => sum + (parseFloat(input.value) || 0), 0);
+  
+  // Get monthly business costs (excluding taxes)
+  const businessMonthly = Array.from(document.querySelectorAll('.business-monthly'))
+    .reduce((sum, input) => sum + (parseFloat(input.value) || 0), 0);
+  
+  // Get tax rate as decimal
+  const taxRate = (parseFloat(document.getElementById('tax-rate').value) || 0) / 100;
+  
+  // Calculate savings gap
+  const savingsGoal = parseFloat(document.getElementById('savings-goal').value) || 0;
+  const savingsCurrent = parseFloat(document.getElementById('savings-current').value) || 0;
+  const savingsGap = Math.max(0, savingsGoal - savingsCurrent);
+  document.getElementById('savings-gap').value = savingsGap;
+  
+  // Calculate investments gap
+  const investmentsGoal = parseFloat(document.getElementById('investments-goal').value) || 0;
+  const investmentsCurrent = parseFloat(document.getElementById('investments-current').value) || 0;
+  const investmentsGap = Math.max(0, investmentsGoal - investmentsCurrent);
+  document.getElementById('investments-gap').value = investmentsGap;
+  
+  // Calculate base costs (without taxes)
+  const personalAnnual = personalMonthly * 12;
+  const businessAnnual = businessMonthly * 12;
+  const baseCosts = personalAnnual + businessAnnual + savingsGap + investmentsGap;
+  
+  // Calculate income goal including taxes
+  // Formula: Income Goal = Base Costs / (1 - Tax Rate)
+  const annualGoal = taxRate < 1 ? baseCosts / (1 - taxRate) : baseCosts;
+  
+  // Calculate actual tax amount
+  const taxesAnnual = annualGoal * taxRate;
+  
+  const monthlySalary = annualGoal / 12;
+  
+  // Emergency fund buffers (based on personal costs only)
+  const buffer3 = personalMonthly * 3;
+  const buffer6 = personalMonthly * 6;
+  const buffer12 = personalMonthly * 12;
+  
+  // Update displays
+  document.getElementById('annual-goal').textContent = '$' + annualGoal.toLocaleString(undefined, {maximumFractionDigits: 0});
+  document.getElementById('monthly-salary').textContent = '$' + monthlySalary.toLocaleString(undefined, {maximumFractionDigits: 0});
+  document.getElementById('personal-annual').textContent = '$' + personalAnnual.toLocaleString(undefined, {maximumFractionDigits: 0});
+  document.getElementById('business-annual').textContent = '$' + businessAnnual.toLocaleString(undefined, {maximumFractionDigits: 0});
+  document.getElementById('taxes-annual').textContent = '$' + taxesAnnual.toLocaleString(undefined, {maximumFractionDigits: 0});
+  document.getElementById('profit-annual').textContent = '$' + (savingsGap + investmentsGap).toLocaleString(undefined, {maximumFractionDigits: 0});
+  document.getElementById('buffer-3').textContent = '$' + buffer3.toLocaleString(undefined, {maximumFractionDigits: 0});
+  document.getElementById('buffer-6').textContent = '$' + buffer6.toLocaleString(undefined, {maximumFractionDigits: 0});
+  document.getElementById('buffer-12').textContent = '$' + buffer12.toLocaleString(undefined, {maximumFractionDigits: 0});
+  
+  // Calculate percentages for chart
+  if (annualGoal > 0) {
+    const personalPct = (personalAnnual / annualGoal * 100).toFixed(0);
+    const businessPct = (businessAnnual / annualGoal * 100).toFixed(0);
+    const taxesPct = (taxesAnnual / annualGoal * 100).toFixed(0);
+    const savingsPct = (savingsGap / annualGoal * 100).toFixed(0);
+    const investmentsPct = (investmentsGap / annualGoal * 100).toFixed(0);
+    
+    // Update chart
+    const chart = document.getElementById('percentageChart');
+    chart.innerHTML = `
+      <div class="chart-segment" style="width: ${personalPct}%; background: #ff6b6b;"></div>
+      <div class="chart-segment" style="width: ${businessPct}%; background: #4ecdc4;"></div>
+      <div class="chart-segment" style="width: ${taxesPct}%; background: #ff9f43;"></div>
+      <div class="chart-segment" style="width: ${savingsPct}%; background: #ffe66d;"></div>
+      <div class="chart-segment" style="width: ${investmentsPct}%; background: #b19cd9;"></div>
+    `;
+    
+    // Update legend
+    document.getElementById('personal-pct').textContent = `Personal ${personalPct}%`;
+    document.getElementById('business-pct').textContent = `Business ${businessPct}%`;
+    document.getElementById('taxes-pct').textContent = `Taxes ${taxesPct}%`;
+    document.getElementById('savings-pct').textContent = `Savings ${savingsPct}%`;
+    document.getElementById('investments-pct').textContent = `Investments ${investmentsPct}%`;
+  }
+}
+
+// Add listeners
+document.addEventListener('DOMContentLoaded', function() {
+  const allInputs = document.querySelectorAll('.input-field');
+  allInputs.forEach(input => input.addEventListener('input', calculate));
+  calculate();
+});
+
+function addPersonalLine() {
+  const container = document.getElementById('personal-costs');
+  const newRow = document.createElement('div');
+  newRow.className = 'input-row';
+  newRow.innerHTML = `
+    <div class="input-label">
+      <input type="text" placeholder="Cost name" style="border:none; background:transparent; font-size:14px; width:100%;">
+    </div>
+    <div class="input-wrapper">
+      <span class="currency">$</span>
+      <input type="number" class="input-field personal-monthly" value="0" min="0">
+    </div>
+  `;
+  container.appendChild(newRow);
+  newRow.querySelector('.personal-monthly').addEventListener('input', calculate);
+}
+
+function addBusinessLine() {
+  const container = document.getElementById('business-costs');
+  const newRow = document.createElement('div');
+  newRow.className = 'input-row';
+  newRow.innerHTML = `
+    <div class="input-label">
+      <input type="text" placeholder="Cost name" style="border:none; background:transparent; font-size:14px; width:100%;">
+    </div>
+    <div class="input-wrapper">
+      <span class="currency">$</span>
+      <input type="number" class="input-field business-monthly" value="0" min="0">
+    </div>
+  `;
+  container.appendChild(newRow);
+  newRow.querySelector('.business-monthly').addEventListener('input', calculate);
+}
+
+function resetAll() {
+  if (confirm('Clear all numbers and start over?')) {
+    document.querySelectorAll('.input-field').forEach(input => input.value = 0);
+    calculate();
+  }
+}
+
+function saveResults() {
+  const goal = document.getElementById('annual-goal').textContent;
+  const monthly = document.getElementById('monthly-salary').textContent;
+  
+  const text = `My Annual Income Goal: ${goal}\nMonthly Salary Target: ${monthly}`;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    alert(`Saved to clipboard!\n\n${text}\n\nWrite this down. You'll need it to calculate your minimum rate.`);
+  }).catch(() => {
+    alert(`Your Annual Income Goal: ${goal}\nMonthly Salary Target: ${monthly}\n\nWrite this down!`);
+  });
+}
+</script>
+
+<div style="background: var(--black); color: var(--white); padding: 60px 40px; text-align: center;">
+  <p style="font-size: 14px; opacity: 0.8; max-width: 600px; margin: 0 auto 20px; line-height: 1.7;">
+    A friend sent you this resource? Want more tools like this? Join my newsletter for templates, systems, and the kind of freelance advice that actually works in real life.
+  </p>
+  <a href="https://sabrinassantiago.myflodesk.com/waitlist" style="display: inline-block; background: var(--red); color: var(--white); padding: 14px 32px; text-decoration: none; font-weight: 600; font-size: 13px; letter-spacing: 0.05em; transition: background 0.2s ease;">Join the Newsletter</a>
+  <p style="margin-top: 40px; font-size: 12px; opacity: 0.6;">
+    © 2026 Sabrina S. Santiago. This resource was created exclusively for my community. All rights reserved.
+  </p>
+</div>
+
+</body>
+</html>
