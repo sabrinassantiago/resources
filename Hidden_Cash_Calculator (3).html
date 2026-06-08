@@ -686,11 +686,12 @@ function Breakdown({ s }) {
     <div className="dash" style={{ gridTemplateColumns: "1fr 1.32fr" }}>
       <div className="card">
         <div className="klabel"><span className="eyebrow">One-and-Done Client Rate</span></div>
-        <div className="kval big" style={{ color: "var(--red)" }}>{fmtPct(s.oneAndDoneRate)}</div>
+        <div className="kval big" style={{ color: s.oneAndDoneRate === 0 ? "var(--good)" : "var(--red)" }}>{fmtPct(s.oneAndDoneRate)}</div>
         <div className="kdesc">
-          {s.oneAndDone} of your {s.n} clients paid you exactly once and then completely vanished.
-          You went through all that awkward networking and pitching… just to let them walk right out
-          the exit door.
+          {s.oneAndDone === 0
+            ? "None of your clients were one-and-done. Every single one came back, sent someone, or both. That's the kind of business that doesn't need to beg for attention."
+            : s.oneAndDone + " of your " + s.n + " clients paid you exactly once and then completely vanished. You went through all that awkward networking and pitching… just to let them walk right out the exit door."
+          }
         </div>
       </div>
       <div className="card">
