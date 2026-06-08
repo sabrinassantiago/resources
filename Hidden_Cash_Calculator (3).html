@@ -456,17 +456,17 @@ function buildInsights(s) {
   if (s.hustlePct >= 55) {
     out.push({ tone: "warn", text: "Oof! " + r0(s.hustlePct) + "% of your income is coming from the exhausting hamster wheel of chasing brand-new strangers." });
   } else if (s.hustlePct > 0) {
-    out.push({ tone: "good", text: "Only " + r0(s.hustlePct) + "% of your money came from first-time invoices — you're actually keeping people around. Look at you go, honey." });
+    out.push({ tone: "good", text: "Only " + r0(s.hustlePct) + "% of your money came from first-time invoices: you're actually keeping people around. Look at you go, honey." });
   }
 
   if (s.cheatPct < 12) {
-    out.push({ tone: "warn", text: "Your referral system is taking a little nap. You made just " + r0(s.cheatPct) + "% from recommendations — that's free money you're snoozing on." });
+    out.push({ tone: "warn", text: "Your referral system is taking a little nap. You made just " + r0(s.cheatPct) + "% from recommendations: that's free money you're snoozing on." });
   } else {
     out.push({ tone: "good", text: r0(s.cheatPct) + "% of your revenue walked in through referrals. That's the cheat code, and you're already playing it." });
   }
 
   if (s.n > 0 && s.oneAndDoneRate >= 40) {
-    out.push({ tone: "warn", text: s.oneAndDone + " out of " + s.n + " of your clients were one-and-done transactions. That's a revolving door, honey — people paid once and strolled right back out." });
+    out.push({ tone: "warn", text: s.oneAndDone + " out of " + s.n + " of your clients were one-and-done transactions. That's a revolving door, honey: people paid once and strolled right back out." });
   } else if (s.n > 1 && s.oneAndDoneRate < 40) {
     out.push({ tone: "good", text: "Less than 40% of your clients were one-and-done. Most people came back, or sent someone. That's a healthy roster, not a leaky bucket." });
   }
@@ -481,7 +481,7 @@ function buildInsights(s) {
     if (captured >= 100) {
       out.push({ tone: "good", text: "You captured 100% of your potential value. Every single client came back or sent someone. Honestly? This is rare. You've built something people actually trust." });
     } else if (captured >= 75) {
-      out.push({ tone: "good", text: "You captured " + captured + "% of your potential value. That's genuinely strong — you're only leaving " + left + "% behind, and that gap is very fixable." });
+      out.push({ tone: "good", text: "You captured " + captured + "% of your potential value. That's so strong: you're only leaving " + left + "% behind, and that gap is very fixable." });
     } else if (captured >= 50) {
       out.push({ tone: "good", text: "You captured " + captured + "% of your potential value. Solid foundation. The other " + left + "% is just sitting there waiting for us to go get it." });
     } else {
@@ -634,7 +634,7 @@ function Dashboard({ s }) {
         <div className="kdesc">
           {s.hiddenCash <= 0
             ? "Every client came back or sent someone. You captured every dollar on the table. That is the whole game, and you are already winning it."
-            : "This is the money that was sitting right in front of your face — if you'd maximized each client to just one more project and one referral. It's a lot, right? Don't panic. It just means your business has way more potential than you thought."
+            : "This is the money that was sitting right in front of your face, if you'd maximized each client to just one more project and one referral. It's a lot, right? Don't panic. It just means your business has way more potential than you thought."
           }
         </div>
       </div>
@@ -720,7 +720,7 @@ function Features({ s }) {
           <div className="line"><span className="lk">Their friends' money</span><span className="lv">{fmt$(b.referralValue)}</span></div>
           <div className="line total"><span className="lk">Total extracted value</span><span className="lv">{fmt$(b.totalValue)}</span></div>
         </div>
-        <div className="reflect">What made this relationship so magical — and how do we make every other client feel exactly like this one?</div>
+        <div className="reflect">What made this relationship so magical? And how do we make every other client feel exactly like this one?</div>
       </div>
       <div className="feature leak">
         <div className="crown">💸</div>
@@ -847,7 +847,7 @@ function App() {
         <h1>Hidden Cash<br /><span className="ital">Calculator</span></h1>
         <div className="lede">
           <span className="sass">Amateurs only count the first invoice.</span>
-          <span className="muted">Use this to see how much extra cash is secretly hiding in your business right now — and exactly where you're accidentally dropping it on the floor.</span>
+          <span className="muted">Use this to see how much extra cash is secretly hiding in your business right now and exactly where you're accidentally dropping it on the floor.</span>
         </div>
       </header>
 
@@ -877,7 +877,7 @@ function App() {
         <div className="sec-head">
           <span className="no">{readyClients.length >= 2 ? "05" : "04"}</span>
           <h2>Every Client, Ranked</h2>
-          <span className="hint">Sorted by total value — highest to lowest.</span>
+          <span className="hint">Sorted by total value: highest to lowest.</span>
         </div>
         <ValueTable s={s} />
 
@@ -891,7 +891,7 @@ function App() {
           <div className="inner">
             {s.hiddenCash <= 0 ? (
               <>
-                <p>You left <span className="red">nothing</span> on the table. Your clients came back, sent friends, and paid you again. That’s not luck — that’s a business that actually works.</p>
+                <p>You left <span className="red">nothing</span> on the table. Your clients came back, sent friends, and paid you again. That’s not luck, that’s a business that actually works (and I'm so freaking proud!!!)</p>
                 <p className="kick">Most freelancers never get here. They spend their whole career chasing the next stranger instead of nurturing the people already in the room. You figured out the hard part. Now scale it.</p>
               </>
             ) : s.hiddenCash < s.realized * 0.15 ? (
