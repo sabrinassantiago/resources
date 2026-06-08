@@ -723,9 +723,9 @@ function Features({ s }) {
         </div>
         <div className="reflect">What made this relationship so magical? And how do we make every other client feel exactly like this one?</div>
       </div>
-      <div className="feature leak">
-        <div className="crown">💸</div>
-        <h3>Biggest Cash Leak</h3>
+     <div className="feature leak">
+        <div className="crown">{l.hiddenLost === 0 ? "✅" : "💸"}</div>
+        <h3>{l.hiddenLost === 0 ? "No Leaks Found" : "Biggest Cash Leak"}</h3>
         <div className="who">{l.name || "Unnamed client"}</div>
         <div className="lines">
           <div className="line"><span className="lk">Original project</span><span className="lv">{fmt$(l.projectValue)}</span></div>
@@ -733,7 +733,7 @@ function Features({ s }) {
           <div className="line"><span className="lk">Referral revenue</span><span className="lv">{fmt$(l.referralValue)}</span></div>
           <div className="line total"><span className="lk">Hidden cash lost</span><span className="lv">{fmt$(l.hiddenLost)}</span></div>
         </div>
-        <div className="reflect">This client trusted you once. What happened after that, honey?</div>
+        <div className="reflect">{l.hiddenLost === 0 ? "Every client on this roster came back or sent someone. There is nothing to fix here." : "This client trusted you once. What happened after that, honey?"}</div>
       </div>
     </div>
   );
