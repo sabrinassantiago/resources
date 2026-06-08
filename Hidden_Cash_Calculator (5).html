@@ -300,6 +300,30 @@ table.value tfoot td:first-child { text-align: left; }
   line-height: 1.6; }
 .finale .go { margin-top: 28px; }
 
+/* ── Footer ── */
+.site-footer {
+  background: var(--ink); color: var(--cream);
+  padding: 56px 28px 40px; margin-top: 0;
+}
+.ft-inner {
+  max-width: 1180px; margin: 0 auto; text-align: center;
+}
+.ft-msg {
+  font-family: "Instrument Serif", serif; font-size: clamp(20px, 3vw, 28px);
+  line-height: 1.3; margin: 0 0 24px; letter-spacing: -0.01em;
+}
+.ft-em { font-style: italic; color: #ff8a6b; }
+.ft-cta { margin-bottom: 32px; }
+.ft-rule {
+  width: 48px; height: 1px; background: rgba(247,244,240,0.2);
+  margin: 0 auto 24px;
+}
+.ft-sig { font-size: 14px; color: rgba(247,244,240,0.72); margin: 0 0 8px; }
+.ft-heart { color: var(--red); }
+.ft-copy { font-size: 12px; color: rgba(247,244,240,0.4); margin: 0; }
+.ft-link { color: var(--cream); text-decoration: underline; text-underline-offset: 3px; opacity: 0.85; }
+.ft-link:hover { opacity: 1; }
+
 /* ── Results hidden until data entered ── */
 .results-area { display: none; }
 .results-area.visible { display: block; }
@@ -324,17 +348,18 @@ table.value tfoot td:first-child { text-align: left; }
   }
   body { background: var(--cream) !important; }
   .topbar, .add-row, .tbl-foot, td.del, .delbtn, .no-print,
-  .waiting-dash { display: none !important; }
+  .waiting-dash, .site-footer { display: none !important; }
   .results-area { display: block !important; }
   .card { background: var(--card) !important; break-inside: avoid; box-shadow: none; }
   .card.dark { background: var(--ink) !important; color: var(--cream) !important; }
   .hero-card { background: var(--red) !important; color: var(--cream) !important; break-inside: avoid; }
   .feature.bestie { background: var(--ink) !important; color: var(--cream) !important; break-inside: avoid; }
   .feature.leak { background: var(--card) !important; break-inside: avoid; }
-.panel { background: var(--card) !important; box-shadow: none; break-inside: avoid; overflow: visible !important; }
-.tbl-wrap { overflow: visible !important; }
-table.clients, table.value { min-width: 0 !important; width: 100% !important; font-size: 11px !important; }
-table.clients thead th, table.value th, table.clients tbody td, table.value td, table.value tfoot td { padding: 8px 6px !important; }  .insight { background: var(--card) !important; box-shadow: none; break-inside: avoid; }
+  .panel { background: var(--card) !important; box-shadow: none; break-inside: avoid; overflow: visible !important; }
+  .tbl-wrap { overflow: visible !important; }
+  table.clients, table.value { min-width: 0 !important; width: 100% !important; font-size: 11px !important; }
+  table.clients thead th, table.value th, table.clients tbody td, table.value td, table.value tfoot td { padding: 8px 6px !important; }
+  .insight { background: var(--card) !important; box-shadow: none; break-inside: avoid; }
   .finale { background: var(--ink) !important; color: var(--cream) !important; break-inside: avoid; }
   table.clients thead th,
   table.value th { background: #FCFBF9 !important; }
@@ -345,11 +370,11 @@ table.clients thead th, table.value th, table.clients tbody td, table.value td, 
   .bar-track { background: rgba(26,26,26,0.07) !important; }
   .donut::before { background: conic-gradient(var(--red) calc(var(--p) * 1%), rgba(26,26,26,0.09) 0) !important; }
   .dash, .feature-grid { gap: 12px; }
-  .finale { break-inside: avoid; }
   .cell input { border: none; }
   .cell { border-color: transparent !important; background: transparent !important; }
   .shell { padding: 0 20px 40px; }
-@page { margin: 12mm 10mm; size: A4 portrait; }}
+  @page { margin: 12mm 10mm; size: A4 portrait; }
+}
 </style>
 </head>
 <body>
@@ -360,7 +385,6 @@ table.clients thead th, table.value th, table.clients tbody td, table.value td, 
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
 
 <script type="text/babel">
-// ── calc engine ──────────────────────────────────────────────────────────────
 const num = (v) => {
   if (typeof v === "number") return isFinite(v) ? v : 0;
   const n = parseFloat(String(v ?? "").replace(/[^0-9.\-]/g, ""));
@@ -372,18 +396,11 @@ function computeClient(c) {
   const repeatValue = num(c.repeatRev);
   const referralValue = num(c.referralRev);
   const totalValue = projectValue + repeatValue + referralValue;
-
-  // Potential per stream:
-  // Repeats: if they had any repeat projects, that stream is captured at actual value.
-  //          If repeats = 0, the gap is one repeat benchmarked at first project price.
-  // Referrals: if they had any referrals, that stream is captured at actual value.
-  //            If referrals = 0, the gap is one referral benchmarked at first project price.
   const hasRepeats = num(c.repeatProjects) > 0;
   const hasReferrals = num(c.referrals) > 0;
   const repeatPotential = hasRepeats ? repeatValue : projectValue;
   const referralPotential = hasReferrals ? referralValue : projectValue;
   const potentialValue = projectValue + repeatPotential + referralPotential;
-
   const hiddenLost = Math.max(0, potentialValue - totalValue);
   const captureRate = potentialValue > 0 ? (totalValue / potentialValue) * 100 : 0;
   const multiple = projectValue > 0 ? totalValue / projectValue : 0;
@@ -416,31 +433,26 @@ function computeSummary(clients) {
 function buildInsights(s) {
   const out = [];
   const r0 = (x) => Math.round(x);
-
   if (s.hustlePct >= 55) {
     out.push({ tone: "warn", text: "Oof! " + r0(s.hustlePct) + "% of your income is coming from the exhausting hamster wheel of chasing brand-new strangers." });
   } else if (s.hustlePct > 0) {
     out.push({ tone: "good", text: "Only " + r0(s.hustlePct) + "% of your money came from first-time invoices. You're actually keeping people around. Look at you go!" });
   }
-
   if (s.cheatPct < 12) {
     out.push({ tone: "warn", text: "Your referral system is taking a little nap. You made just " + r0(s.cheatPct) + "% from recommendations. That's free money you're snoozing on." });
   } else {
     out.push({ tone: "good", text: r0(s.cheatPct) + "% of your revenue walked in through referrals. That's the cheat code, and you're already playing it." });
   }
-
   if (s.n > 0 && s.oneAndDoneRate >= 40) {
     out.push({ tone: "warn", text: s.oneAndDone + " out of " + s.n + " of your clients were one-and-done. That's a revolving door. People paid once and strolled right back out." });
   } else if (s.n > 1 && s.oneAndDoneRate < 40) {
     out.push({ tone: "good", text: "Less than 40% of your clients were one-and-done. Most people came back, or sent someone. That's a healthy roster, not a leaky bucket." });
   }
-
   if (s.bestie && s.bestie.multiple >= 3) {
     out.push({ tone: "good", text: s.bestie.name + " was worth " + s.bestie.multiple.toFixed(1) + "x their original project value through repeats and referrals. That client is a case study in what loyalty looks like." });
   } else if (s.bestie && s.bestie.multiple >= 1.5) {
     out.push({ tone: "good", text: s.bestie.name + " brought in " + s.bestie.multiple.toFixed(1) + "x their first project through repeats and referrals. That's exactly what a well-nurtured client relationship looks like." });
   }
-
   if (s.fullPotential > 0) {
     const captured = r0(s.captureRate);
     const left = r0(100 - s.captureRate);
@@ -454,26 +466,20 @@ function buildInsights(s) {
       out.push({ tone: "warn", text: "You captured " + captured + "% of your potential value. The good news? The other " + left + "% is just sitting there waiting for us to go get it." });
     }
   }
-
   return out.slice(0, 5);
 }
 
-// ── app ──────────────────────────────────────────────────────────────────────
 const { useState, useMemo, useEffect, useRef } = React;
 const fmt$ = (v) => "$" + Math.round(v).toLocaleString("en-US");
 const fmtPct = (v) => Math.round(v) + "%";
 const uid = () => "c" + Math.random().toString(36).slice(2, 8);
 const STORE_KEY = "hidden-cash-clients-v3";
-
 const BLANK_ROW = () => ({ id: uid(), name: "", firstRev: 0, repeatProjects: 0, repeatRev: 0, referrals: 0, referralRev: 0 });
 
 function loadClients() {
   try {
     const raw = localStorage.getItem(STORE_KEY);
-    if (raw) {
-      const p = JSON.parse(raw);
-      if (Array.isArray(p) && p.length) return p;
-    }
+    if (raw) { const p = JSON.parse(raw); if (Array.isArray(p) && p.length) return p; }
   } catch (e) {}
   return [BLANK_ROW()];
 }
@@ -493,10 +499,8 @@ function Donut({ pct }) {
 function CurrencyInput({ value, placeholder, onChange, className }) {
   const [raw, setRaw] = useState("");
   const [focused, setFocused] = useState(false);
-  const display = focused
-    ? raw
-: (value === "" ? "" : Number(value).toLocaleString("en-US"));
-      return (
+  const display = focused ? raw : (value === "" ? "" : Number(value).toLocaleString("en-US"));
+  return (
     <div className={"cell cur " + (className || "")}>
       <input
         inputMode="decimal"
@@ -513,7 +517,7 @@ function CurrencyInput({ value, placeholder, onChange, className }) {
 function NumInput({ value, placeholder, onChange }) {
   const [raw, setRaw] = useState("");
   const [focused, setFocused] = useState(false);
-const display = focused ? raw : (value === "" ? "" : String(value));
+  const display = focused ? raw : (value === "" ? "" : String(value));
   return (
     <div className="cell num">
       <input
@@ -530,15 +534,9 @@ const display = focused ? raw : (value === "" ? "" : String(value));
 
 function ClientTable({ clients, setClients }) {
   const firstInputRef = useRef(null);
-
-  const update = (id, key, val) =>
-    setClients((cs) => cs.map((c) => (c.id === id ? { ...c, [key]: val } : c)));
-  const remove = (id) => setClients((cs) => {
-    const next = cs.filter((c) => c.id !== id);
-    return next.length === 0 ? [BLANK_ROW()] : next;
-  });
+  const update = (id, key, val) => setClients((cs) => cs.map((c) => (c.id === id ? { ...c, [key]: val } : c)));
+  const remove = (id) => setClients((cs) => { const next = cs.filter((c) => c.id !== id); return next.length === 0 ? [BLANK_ROW()] : next; });
   const add = () => setClients((cs) => [...cs, BLANK_ROW()]);
-
   return (
     <div className="panel">
       <div className="tbl-wrap">
@@ -557,29 +555,13 @@ function ClientTable({ clients, setClients }) {
           <tbody>
             {clients.map((c, i) => (
               <tr key={c.id}>
-                <td>
-                  <div className="cell name">
-                    <input
-                      ref={i === 0 ? firstInputRef : null}
-                      value={c.name}
-                      placeholder="Client name"
-                      onChange={(e) => update(c.id, "name", e.target.value)}
-                    />
-                  </div>
-                </td>
-                <td><CurrencyInput className="num" value={c.firstRev} placeholder="5,000"
-                  onChange={(v) => update(c.id, "firstRev", v)} /></td>
-                <td><NumInput value={c.repeatProjects} placeholder="2"
-                  onChange={(v) => update(c.id, "repeatProjects", v)} /></td>
-                <td><CurrencyInput className="num" value={c.repeatRev} placeholder="10,000"
-                  onChange={(v) => update(c.id, "repeatRev", v)} /></td>
-                <td><NumInput value={c.referrals} placeholder="1"
-                  onChange={(v) => update(c.id, "referrals", v)} /></td>
-                <td><CurrencyInput className="num" value={c.referralRev} placeholder="5,000"
-                  onChange={(v) => update(c.id, "referralRev", v)} /></td>
-                <td className="del">
-                  <button className="delbtn" title="Remove client" onClick={() => remove(c.id)}>×</button>
-                </td>
+                <td><div className="cell name"><input ref={i === 0 ? firstInputRef : null} value={c.name} placeholder="Client name" onChange={(e) => update(c.id, "name", e.target.value)} /></div></td>
+                <td><CurrencyInput className="num" value={c.firstRev} placeholder="5,000" onChange={(v) => update(c.id, "firstRev", v)} /></td>
+                <td><NumInput value={c.repeatProjects} placeholder="2" onChange={(v) => update(c.id, "repeatProjects", v)} /></td>
+                <td><CurrencyInput className="num" value={c.repeatRev} placeholder="10,000" onChange={(v) => update(c.id, "repeatRev", v)} /></td>
+                <td><NumInput value={c.referrals} placeholder="1" onChange={(v) => update(c.id, "referrals", v)} /></td>
+                <td><CurrencyInput className="num" value={c.referralRev} placeholder="5,000" onChange={(v) => update(c.id, "referralRev", v)} /></td>
+                <td className="del"><button className="delbtn" title="Remove client" onClick={() => remove(c.id)}>×</button></td>
               </tr>
             ))}
           </tbody>
@@ -614,10 +596,7 @@ function Dashboard({ s }) {
             <Donut pct={s.captureRate} />
             <div className="kdesc" style={{ marginTop: 0 }}>
               How much of your potential client equity you actually locked down.
-              {s.captureRate >= 100
-                ? <em> You got it all. Seriously.</em>
-                : <em> (Anything under 50% just means we've got some fun work to do.)</em>
-              }
+              {s.captureRate >= 100 ? <em> You got it all. Seriously.</em> : <em> (Anything under 50% just means we've got some fun work to do.)</em>}
             </div>
           </div>
         </div>
@@ -646,9 +625,7 @@ function Breakdown({ s }) {
         <div className="nm">{nm}<small>{sub}</small></div>
         <div className="amt">{fmt$(amt)} <span>· {fmtPct(pct)}</span></div>
       </div>
-      <div className="bar-track">
-        <div className={"bar-fill " + cls} style={{ width: (amt / max) * 100 + "%" }}></div>
-      </div>
+      <div className="bar-track"><div className={"bar-fill " + cls} style={{ width: (amt / max) * 100 + "%" }}></div></div>
     </div>
   );
   return (
@@ -716,13 +693,7 @@ function ValueTable({ s }) {
         <table className="value">
           <thead>
             <tr>
-              <th>Client</th>
-              <th>First Project</th>
-              <th>Repeat</th>
-              <th>Referral</th>
-              <th>Total Value</th>
-              <th>Full Potential</th>
-              <th>Hidden Cash Lost</th>
+              <th>Client</th><th>First Project</th><th>Repeat</th><th>Referral</th><th>Total Value</th><th>Full Potential</th><th>Hidden Cash Lost</th>
             </tr>
           </thead>
           <tbody>
@@ -785,27 +756,19 @@ function exportCSV(s) {
   URL.revokeObjectURL(a.href);
 }
 
-// ── main App ─────────────────────────────────────────────────────────────────
 function App() {
   const [clients, setClients] = useState(loadClients);
-
-  useEffect(() => {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(clients)); } catch (e) {}
-  }, [clients]);
-
+  useEffect(() => { try { localStorage.setItem(STORE_KEY, JSON.stringify(clients)); } catch (e) {} }, [clients]);
   const readyClients = useMemo(() => clients.filter(clientIsReady), [clients]);
   const hasResults = readyClients.length >= 1;
-
   const s = useMemo(() => computeSummary(readyClients), [readyClients]);
   const insights = useMemo(() => buildInsights(s), [s]);
 
   return (
+    <React.Fragment>
     <div className="shell">
       <div className="topbar">
-        <div className="brand">
-          <span className="dot"></span>
-          <span className="wm">Hidden Cash Calculator</span>
-        </div>
+        <div className="brand"><span className="dot"></span><span className="wm">Hidden Cash Calculator</span></div>
         <div className="toolbtns">
           <button className="btn btn--ghost" onClick={() => hasResults && exportCSV(s)} style={{ opacity: hasResults ? 1 : 0.38, pointerEvents: hasResults ? "auto" : "none" }}>↧ Export CSV</button>
           <button className="btn btn--red" onClick={() => window.print()}>⎙ Save as PDF</button>
@@ -828,7 +791,6 @@ function App() {
       <ClientTable clients={clients} setClients={setClients} />
 
       <div className={"results-area" + (hasResults ? " visible" : "")}>
-
         <div className="sec-head"><span className="no">02</span><h2>{s.hiddenCash <= 0 ? "The Clean Report" : "The Damage Report"}</h2></div>
         <Dashboard s={s} />
 
@@ -873,7 +835,7 @@ function App() {
                 <p className="kick">You don't need to chase more strangers, honey. You just need to learn how to keep the clients you've already got from slipping right through your fingers. Let's fix this.</p>
               </>
             )}
-       <div className="go no-print" style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+            <div className="go no-print" style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
               <button className="btn btn--red" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
                 ↑ Back to the top
               </button>
@@ -883,7 +845,6 @@ function App() {
             </div>
           </div>
         </section>
-
       </div>
 
       {!hasResults && (
@@ -895,6 +856,19 @@ function App() {
         </div>
       )}
     </div>
+
+    <footer className="site-footer">
+      <div className="ft-inner">
+        <p className="ft-msg">This calculator is part of a newsletter about building a freelance business that <span className="ft-em">does not make you want to fake your own death.</span></p>
+        <a href="https://sabrinassantiago.myflodesk.com/newstools" target="_blank" rel="noopener noreferrer">
+          <button className="btn btn--red ft-cta no-print">Join the Newsletter →</button>
+        </a>
+        <div className="ft-rule"></div>
+        <p className="ft-sig">Made with <span className="ft-heart">♥</span> by your favorite freelancer, <a className="ft-link" href="https://www.linkedin.com/in/sabrss" target="_blank" rel="noopener noreferrer">Sabrina S. Santiago</a></p>
+        <p className="ft-copy">© 2026 Sabrina S. Santiago</p>
+      </div>
+    </footer>
+    </React.Fragment>
   );
 }
 
