@@ -494,8 +494,8 @@ function CurrencyInput({ value, placeholder, onChange, className }) {
   const [focused, setFocused] = useState(false);
   const display = focused
     ? raw
-    : (value === 0 || value === "" ? "" : Number(value).toLocaleString("en-US"));
-  return (
+: (value === "" ? "" : Number(value).toLocaleString("en-US"));
+      return (
     <div className={"cell cur " + (className || "")}>
       <input
         inputMode="decimal"
@@ -512,7 +512,7 @@ function CurrencyInput({ value, placeholder, onChange, className }) {
 function NumInput({ value, placeholder, onChange }) {
   const [raw, setRaw] = useState("");
   const [focused, setFocused] = useState(false);
-  const display = focused ? raw : (value === 0 || value === "" ? "" : String(value));
+const display = focused ? raw : (value === "" ? "" : String(value));
   return (
     <div className="cell num">
       <input
