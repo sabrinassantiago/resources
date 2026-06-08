@@ -472,7 +472,7 @@ function buildInsights(s) {
   }
 
   if (s.bestie && s.bestie.multiple >= 1.5) {
-    out.push({ tone: "good", text: "Your MVP, " + s.bestie.name + ", was worth " + s.bestie.multiple.toFixed(1) + "x their original scope. See? You're literally sitting on a goldmine." });
+    out.push({ tone: "good", text: "Your Top Client, " + s.bestie.name + ", was worth " + s.bestie.multiple.toFixed(1) + "x their original scope. See? You're literally sitting on a goldmine." });
   }
 
   if (s.fullPotential > 0) {
@@ -714,7 +714,7 @@ function Features({ s }) {
       <div className="feature bestie">
         <div className="crown">👑</div>
         <h3>Your Business Bestie</h3>
-        <div className="who">{b.name || "Unnamed client"} · MVP</div>
+        <div className="who">{b.name || "Unnamed client"} · Top Client</div>
         <div className="lines">
           <div className="line"><span className="lk">First hello</span><span className="lv">{fmt$(b.projectValue)}</span></div>
           <div className="line"><span className="lk">Round two &amp; beyond</span><span className="lv">{fmt$(b.repeatValue)}</span></div>
