@@ -420,7 +420,7 @@ function buildInsights(s) {
   if (s.hustlePct >= 55) {
     out.push({ tone: "warn", text: "Oof! " + r0(s.hustlePct) + "% of your income is coming from the exhausting hamster wheel of chasing brand-new strangers." });
   } else if (s.hustlePct > 0) {
-    out.push({ tone: "good", text: "Only " + r0(s.hustlePct) + "% of your money came from first-time invoices. You're actually keeping people around. Look at you go, honey." });
+    out.push({ tone: "good", text: "Only " + r0(s.hustlePct) + "% of your money came from first-time invoices. You're actually keeping people around. Look at you go!" });
   }
 
   if (s.cheatPct < 12) {
@@ -430,7 +430,7 @@ function buildInsights(s) {
   }
 
   if (s.n > 0 && s.oneAndDoneRate >= 40) {
-    out.push({ tone: "warn", text: s.oneAndDone + " out of " + s.n + " of your clients were one-and-done. That's a revolving door, honey. People paid once and strolled right back out." });
+    out.push({ tone: "warn", text: s.oneAndDone + " out of " + s.n + " of your clients were one-and-done. That's a revolving door. People paid once and strolled right back out." });
   } else if (s.n > 1 && s.oneAndDoneRate < 40) {
     out.push({ tone: "good", text: "Less than 40% of your clients were one-and-done. Most people came back, or sent someone. That's a healthy roster, not a leaky bucket." });
   }
@@ -851,7 +851,7 @@ function App() {
 
         <div className="sec-head">
           <span className="no">{readyClients.length >= 2 ? "06" : "05"}</span>
-          <h2>What We're Seeing, Honey</h2>
+          <h2>What We're Seeing</h2>
         </div>
         <Insights items={insights} />
 
