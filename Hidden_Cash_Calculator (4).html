@@ -616,7 +616,7 @@ function Dashboard({ s }) {
               How much of your potential client equity you actually locked down.
               {s.captureRate >= 100
                 ? <em> You got it all. Seriously.</em>
-                : <em> (Anything under 50% just means we've got some fun work to do, honey.)</em>
+                : <em> (Anything under 50% just means we've got some fun work to do.)</em>
               }
             </div>
           </div>
@@ -702,7 +702,7 @@ function Features({ s }) {
           <div className="line"><span className="lk">Referral revenue</span><span className="lv">{fmt$(l.referralValue)}</span></div>
           <div className="line total"><span className="lk">Hidden cash lost</span><span className="lv">{fmt$(l.hiddenLost)}</span></div>
         </div>
-        <div className="reflect">{l.hiddenLost === 0 ? "Every client on this roster came back or sent someone. There is nothing to fix here." : "This client trusted you once. What happened after that, honey?"}</div>
+        <div className="reflect">{l.hiddenLost === 0 ? "Every client on this roster came back or sent someone. There is nothing to fix here." : "This client trusted you once. What happened after that?"}</div>
       </div>
     </div>
   );
