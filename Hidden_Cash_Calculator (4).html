@@ -331,8 +331,10 @@ table.value tfoot td:first-child { text-align: left; }
   .hero-card { background: var(--red) !important; color: var(--cream) !important; break-inside: avoid; }
   .feature.bestie { background: var(--ink) !important; color: var(--cream) !important; break-inside: avoid; }
   .feature.leak { background: var(--card) !important; break-inside: avoid; }
-  .panel { background: var(--card) !important; box-shadow: none; break-inside: avoid; }
-  .insight { background: var(--card) !important; box-shadow: none; break-inside: avoid; }
+.panel { background: var(--card) !important; box-shadow: none; break-inside: avoid; overflow: visible !important; }
+.tbl-wrap { overflow: visible !important; }
+table.clients, table.value { min-width: 0 !important; width: 100% !important; font-size: 11px !important; }
+table.clients thead th, table.value th, table.clients tbody td, table.value td, table.value tfoot td { padding: 8px 6px !important; }  .insight { background: var(--card) !important; box-shadow: none; break-inside: avoid; }
   .finale { background: var(--ink) !important; color: var(--cream) !important; break-inside: avoid; }
   table.clients thead th,
   table.value th { background: #FCFBF9 !important; }
@@ -347,8 +349,7 @@ table.value tfoot td:first-child { text-align: left; }
   .cell input { border: none; }
   .cell { border-color: transparent !important; background: transparent !important; }
   .shell { padding: 0 20px 40px; }
-  @page { margin: 16mm 14mm; }
-}
+@page { margin: 12mm 10mm; size: A4 portrait; }}
 </style>
 </head>
 <body>
