@@ -479,7 +479,7 @@ function buildInsights(s) {
     const captured = r0(s.captureRate);
     const left = r0(100 - s.captureRate);
     if (captured >= 100) {
-      out.push({ tone: "good", text: "You captured 100% of your potential value. Every single client came back or sent someone. Honestly? This is rare. You've built something people actually trust." });
+      out.push({ tone: "good", text: "You captured 100% of your potential value. Every single client came back or sent someone. TBH? This is rare. You've built something people actually trust." });
     } else if (captured >= 75) {
       out.push({ tone: "good", text: "You captured " + captured + "% of your potential value. That's so strong: you're only leaving " + left + "% behind, and that gap is very fixable." });
     } else if (captured >= 50) {
