@@ -873,9 +873,12 @@ function App() {
                 <p className="kick">You don't need to chase more strangers, honey. You just need to learn how to keep the clients you've already got from slipping right through your fingers. Let's fix this.</p>
               </>
             )}
-            <div className="go no-print">
+       <div className="go no-print" style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
               <button className="btn btn--red" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
                 ↑ Back to the top
+              </button>
+              <button className="btn" style={{ background: "rgba(247,244,240,0.12)", color: "var(--cream)", borderColor: "rgba(247,244,240,0.24)" }} onClick={() => window.print()}>
+                ⎙ Save as PDF
               </button>
             </div>
           </div>
