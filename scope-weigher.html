@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Scope Weigher</title>
+<meta name="description" content="Decide what stays, what moves to phase two, and what goes, without touching your price.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#A60303;
+  --cream:#F7F4F0;
+  --ink:#1A1A1A;
+  --paper:#FFFDFA;
+  --line:rgba(26,26,26,.16);
+  --muted:rgba(26,26,26,.72);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:780px;margin:0 auto;padding:44px 20px 72px}
+.eyebrow{color:var(--red);font-weight:600;font-size:14px;margin:0 0 10px}
+h1{
+  font-family:'Instrument Serif',Georgia,'Times New Roman',serif;font-weight:400;
+  font-size:clamp(46px,9vw,72px);line-height:1;margin:0 0 16px;letter-spacing:-.01em;
+}
+h1 em{color:var(--red)}
+.lede{font-size:18px;max-width:58ch;margin:0;color:var(--ink)}
+h2{
+  font-family:'Instrument Serif',Georgia,'Times New Roman',serif;font-weight:400;
+  font-size:30px;line-height:1.15;margin:0 0 6px;
+}
+.num{color:var(--red);font-style:italic;margin-right:8px}
+.step{
+  background:var(--paper);border:1px solid var(--line);border-radius:16px;
+  padding:26px;margin-top:22px;
+}
+.hint{margin:0 0 16px;color:var(--muted);font-size:15px}
+
+/* focus */
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+
+/* inputs and buttons */
+input[type=text]{
+  width:100%;min-height:46px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;
+  background:#fff;color:var(--ink);font:inherit;
+}
+input[type=text]::placeholder{color:rgba(26,26,26,.5)}
+input[type=text]:focus{border-color:var(--ink)}
+.btn{
+  background:var(--red);color:#fff;border:1px solid var(--red);border-radius:10px;
+  padding:11px 18px;min-height:46px;font:600 15px 'Inter',sans-serif;cursor:pointer;
+}
+.btn:hover{background:#8a0202;border-color:#8a0202}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--cream)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* step 1 */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 18px}
+.mode{
+  text-align:left;background:#fff;color:var(--ink);border:1.5px solid var(--line);border-radius:12px;
+  padding:16px;cursor:pointer;font:inherit;display:flex;flex-direction:column;gap:4px;
+}
+.mode strong{font-size:17px}
+.mode span{font-size:14px;color:var(--muted)}
+.mode:hover{border-color:var(--ink)}
+.mode[aria-pressed=true]{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.mode[aria-pressed=true] span{color:rgba(247,244,240,.82)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fields label{display:block;font-weight:600;font-size:14px}
+.fields input{margin-top:6px;font-weight:400}
+.opt{font-weight:400;color:var(--muted)}
+
+/* step 2 */
+.addrow{display:flex;gap:10px}
+.addrow input{flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.chips-label{font-size:13px;color:var(--muted);margin-right:2px}
+.chip{
+  border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;
+  padding:6px 12px;font:500 13px 'Inter',sans-serif;cursor:pointer;min-height:34px;
+}
+.chip:hover{border-color:var(--ink)}
+.item{border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px;background:#fff}
+.item-top{display:flex;gap:10px;align-items:center}
+.item-top input{flex:1;font-weight:600}
+.rm{
+  width:46px;height:46px;border-radius:10px;border:1px solid var(--line);background:transparent;
+  color:var(--ink);font-size:22px;line-height:1;cursor:pointer;
+}
+.rm:hover{border-color:var(--red);color:var(--red)}
+.ratings{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+.lbl{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.seg{display:flex;border:1px solid var(--ink);border-radius:10px;overflow:hidden}
+.seg button{
+  flex:1;background:transparent;border:0;border-right:1px solid var(--ink);padding:9px 6px;
+  min-height:42px;font:500 13.5px 'Inter',sans-serif;color:var(--ink);cursor:pointer;
+}
+.seg button:last-child{border-right:0}
+.seg button:hover{background:rgba(26,26,26,.07)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--cream)}
+.seg.cost button[aria-pressed=true]{background:var(--red);color:#fff}
+.seg button:focus-visible{outline-offset:-3px}
+.must{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:14px;cursor:pointer}
+.must input{width:18px;height:18px;accent-color:var(--red)}
+#app[data-mode=stronger] .must{display:none}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.empty{
+  border:1px dashed var(--line);border-radius:12px;padding:20px;color:var(--muted);
+  text-align:center;margin-top:12px;background:rgba(255,255,255,.6);
+}
+
+/* step 3 */
+.meters{display:grid;gap:16px;margin:8px 0 6px}
+.meter-label{display:flex;justify-content:space-between;gap:12px;font-weight:600;font-size:14.5px}
+.bar{height:12px;border-radius:99px;background:rgba(26,26,26,.1);overflow:hidden;margin-top:6px}
+.bar>span{display:block;height:100%;border-radius:99px;transition:width .35s ease}
+.bar.v>span{background:var(--ink)}
+.bar.e>span{background:var(--red)}
+.verdict{
+  font-family:'Instrument Serif',Georgia,serif;font-size:24px;line-height:1.25;margin:16px 0 4px;
+}
+.caption{font-size:13px;color:var(--muted);margin:0}
+.group{border:1px solid var(--line);border-radius:12px;margin-top:14px;overflow:hidden;background:#fff}
+.group-head{
+  display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  padding:12px 14px 0;
+}
+.badge{
+  font-weight:700;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;border:1.5px solid var(--ink);
+}
+.badge.core{background:var(--ink);color:var(--cream)}
+.badge.light{background:transparent;color:var(--ink)}
+.badge.later{border-color:var(--red);color:var(--red)}
+.badge.drop{background:var(--red);color:#fff;border-color:var(--red)}
+.count{font-size:13px;color:var(--muted)}
+.group-desc{font-size:14px;color:var(--muted);margin:8px 14px 0}
+.group ul{list-style:none;margin:8px 0 0;padding:0 14px 8px}
+.group li{
+  display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-top:1px solid var(--line);
+}
+.group li:first-child{border-top:0}
+.nm{font-weight:600;overflow-wrap:anywhere}
+.group.drop .nm{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.tags{font-size:12.5px;color:var(--muted);text-align:right}
+.msg-title{font-family:'Instrument Serif',Georgia,serif;font-size:26px;margin:28px 0 8px;font-weight:400}
+.msg{
+  white-space:pre-wrap;background:#fff;border:1.5px dashed var(--ink);border-radius:12px;
+  padding:16px;font-size:15px;margin:0 0 12px;overflow-wrap:anywhere;
+}
+.copyrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+footer{margin-top:30px;font-size:13px;color:var(--muted);text-align:center}
+footer strong{color:var(--ink)}
+
+@media (max-width:620px){
+  .wrap{padding:30px 16px 56px}
+  .step{padding:20px 16px}
+  .modes,.fields,.ratings{grid-template-columns:1fr}
+  .addrow{flex-direction:column}
+  .group li{flex-direction:column;gap:2px}
+  .tags{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){.bar>span{transition:none}}
+</style>
+</head>
+<body>
+<main class="wrap" id="app" data-mode="smaller">
+  <header>
+    <p class="eyebrow">//your favorite tool</p>
+    <h1>The Scope <em>Weigher</em></h1>
+    <p class="lede">When a client says the budget is smaller, the project gets smaller. Use this tool to decide what stays, what moves to a second phase, and what goes. You never touch your price.</p>
+  </header>
+
+  <section class="step" aria-labelledby="s1">
+    <h2 id="s1"><span class="num">1</span>What do you want to do?</h2>
+    <div class="modes">
+      <button type="button" class="mode" data-mode="smaller" aria-pressed="true">
+        <strong>Make it smaller</strong>
+        <span>The budget is lower than my quote.</span>
+      </button>
+      <button type="button" class="mode" data-mode="stronger" aria-pressed="false">
+        <strong>Make it stronger</strong>
+        <span>I want a better offer at the same price.</span>
+      </button>
+    </div>
+    <div class="fields">
+      <label>Project name <span class="opt">(optional)</span>
+        <input type="text" id="project" maxlength="80" placeholder="Example: Website copy" autocomplete="off">
+      </label>
+      <label>Client first name <span class="opt">(optional)</span>
+        <input type="text" id="client" maxlength="60" placeholder="Example: Maria" autocomplete="off">
+      </label>
+    </div>
+  </section>
+
+  <section class="step" aria-labelledby="s2">
+    <h2 id="s2"><span class="num">2</span><span id="s2t">List everything in your proposal</span></h2>
+    <p class="hint" id="s2h">Add every deliverable, call, revision round, extra, and deadline. Then rate each one.</p>
+    <form class="addrow" id="addform">
+      <label class="sr" for="newitem">New item</label>
+      <input type="text" id="newitem" maxlength="80" placeholder="Example: Three rounds of revisions" autocomplete="off">
+      <button class="btn" type="submit">Add item</button>
+    </form>
+    <div class="chips" id="chips" role="group" aria-label="Quick add"></div>
+    <div id="items"></div>
+    <div class="tools">
+      <button type="button" class="btn ghost" id="example">Load an example</button>
+      <button type="button" class="btn ghost" id="reset">Start over</button>
+    </div>
+  </section>
+
+  <section class="step" aria-labelledby="s3">
+    <h2 id="s3"><span class="num">3</span><span id="s3t">Your smaller version</span></h2>
+    <div id="results"></div>
+  </section>
+
+  <footer>Made by <strong>Sabrina S. Santiago</strong> for Your Favorite Freelancer.</footer>
+  <div class="sr" id="status" aria-live="polite"></div>
+  <noscript><p>This tool needs JavaScript to work. Please turn it on and reload the page.</p></noscript>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var TEXT = {
+    smaller: {
+      s2t: 'List everything in your proposal',
+      s2h: 'Add every deliverable, call, revision round, extra, and deadline. Then rate each one.',
+      s3t: 'Your smaller version',
+      groups: {
+        core: ['Keep', 'The heart of the project. Your client cares about it and it is not too heavy for you.'],
+        light: ['Cheap to keep', 'Your client cares a little, but it costs you almost nothing. Keep it as a small extra.'],
+        later: ['Move to phase two', 'Worth doing, but too heavy for this budget. Offer it as the next step.'],
+        drop: ['Cut first', 'Your client barely notices it, or it costs you more than it gives. Take it out.']
+      }
+    },
+    stronger: {
+      s2t: 'List what you could add',
+      s2h: 'Add bonuses, extra calls, small deliverables, and faster delivery. Then rate each one.',
+      s3t: 'Your stronger offer',
+      groups: {
+        core: ['Add first', 'A big win for your client and light for you. Add these at the same price.'],
+        light: ['Small bonus', 'Easy to add and a nice touch. It costs you very little.'],
+        later: ['Save for phase two', 'A good idea, but too heavy to add now. Sell it as the next step.'],
+        drop: ['Skip', 'Not worth your time right now.']
+      }
+    }
+  };
+
+  var VAL = ['Barely', 'Somewhat', 'A lot'];
+  var COST = ['Little', 'Some', 'A lot'];
+  var QUICK = ['Kickoff call', 'Extra revision round', 'Strategy session', 'Final report', 'Weekly check in', 'Rush delivery', 'Training video'];
+  var EXAMPLES = {
+    smaller: [
+      ['Main deliverable', 3, 3, true],
+      ['Kickoff call', 3, 1],
+      ['Three rounds of revisions', 2, 3],
+      ['Weekly check in calls', 1, 3],
+      ['Strategy session', 3, 3],
+      ['Quick video walkthrough', 2, 1],
+      ['Rush delivery', 2, 2]
+    ],
+    stronger: [
+      ['Quick video walkthrough', 3, 1],
+      ['Handoff checklist', 2, 1],
+      ['30 days of email support', 2, 2],
+      ['Extra strategy session', 3, 3],
+      ['Weekly reports', 1, 3]
+    ]
+  };
+
+  var state = { mode: 'smaller', items: [] };
+  var nextId = 1;
+
+  function $(id) { return document.getElementById(id); }
+
+  function el(tag, props, kids) {
+    var n = document.createElement(tag);
+    if (props) {
+      for (var k in props) {
+        if (!Object.prototype.hasOwnProperty.call(props, k)) continue;
+        if (k === 'class') n.className = props[k];
+        else if (k === 'text') n.textContent = props[k];
+        else n.setAttribute(k, props[k]);
+      }
+    }
+    (kids || []).forEach(function (c) { if (c) n.appendChild(c); });
+    return n;
+  }
+
+  function say(msg) { $('status').textContent = msg; }
+
+  /* ---------- sorting rules ---------- */
+  function classify(it) {
+    var v = it.v, e = it.e;
+    if (state.mode === 'smaller') {
+      if (it.must) return 'core';
+      if (v === 3) return e <= 2 ? 'core' : 'later';
+      if (v === 2) return e === 1 ? 'light' : (e === 2 ? 'later' : 'drop');
+      return e === 1 ? 'light' : 'drop';
+    }
+    if (v === 3) return e <= 2 ? 'core' : 'later';
+    if (v === 2) return e === 1 ? 'light' : (e === 2 ? 'later' : 'drop');
+    return 'drop';
+  }
+
+  /* ---------- items ---------- */
+  function addItem(name, v, e, must) {
+    name = (name || '').replace(/\s+/g, ' ').trim();
+    if (!name) return false;
+    state.items.push({ id: nextId++, name: name, v: v || 2, e: e || 2, must: !!must });
+    return true;
+  }
+
+  function field(label, node) {
+    return el('div', null, [el('span', { class: 'lbl', text: label }), node]);
+  }
+
+  function seg(it, key, labels, cls) {
+    var g = el('div', { class: 'seg ' + cls, role: 'group', 'aria-label': key === 'v' ? 'How much your client cares' : 'How much work it is for you' });
+    labels.forEach(function (lb, i) {
+      var b = el('button', { type: 'button', 'aria-pressed': String(it[key] === i + 1), text: lb });
+      b.addEventListener('click', function () {
+        it[key] = i + 1;
+        [].forEach.call(g.children, function (c, j) { c.setAttribute('aria-pressed', String(j === i)); });
+        renderResults();
+      });
+      g.appendChild(b);
+    });
+    return g;
+  }
+
+  function makeItem(it) {
+    var card = el('div', { class: 'item' });
+    var inp = el('input', { type: 'text', maxlength: '80', 'aria-label': 'Item name', autocomplete: 'off' });
+    inp.value = it.name;
+    inp.addEventListener('input', function () { it.name = inp.value; renderResults(); });
+    var rm = el('button', { type: 'button', class: 'rm', 'aria-label': 'Remove this item', title: 'Remove' });
+    rm.textContent = '\u00D7';
+    rm.addEventListener('click', function () {
+      state.items = state.items.filter(function (x) { return x.id !== it.id; });
+      renderItems();
+      renderResults();
+      say('Item removed');
+      $('newitem').focus();
+    });
+    card.appendChild(el('div', { class: 'item-top' }, [inp, rm]));
+
+    var ratings = el('div', { class: 'ratings' }, [
+      field('How much does your client care?', seg(it, 'v', VAL, '')),
+      field('How much work is it for you?', seg(it, 'e', COST, 'cost'))
+    ]);
+    card.appendChild(ratings);
+
+    var cb = el('input', { type: 'checkbox' });
+    cb.checked = !!it.must;
+    cb.addEventListener('change', function () { it.must = cb.checked; renderResults(); });
+    var must = el('label', { class: 'must' }, [cb, el('span', { text: 'Must stay in the project' })]);
+    card.appendChild(must);
+    return card;
+  }
+
+  function renderItems() {
+    var box = $('items');
+    box.textContent = '';
+    if (!state.items.length) {
+      box.appendChild(el('div', { class: 'empty', text: 'Nothing here yet. Type an item above, tap a quick add, or load an example.' }));
+      return;
+    }
+    state.items.forEach(function (it) { box.appendChild(makeItem(it)); });
+  }
+
+  /* ---------- results ---------- */
+  function bullets(arr) {
+    return arr.map(function (i) { return '\u2022 ' + i.name.trim(); }).join('\n');
+  }
+
+  function buildMessage(g) {
+    var pn = $('project').value.trim();
+    var proj = pn ? 'the ' + pn + ' project' : 'the project';
+    var who = $('client').value.trim() || 'there';
+    var now = g.core.concat(g.light);
+    var later = g.later;
+    var t = 'Hi ' + who + ',\n\n';
+    if (state.mode === 'smaller') {
+      t += 'Thank you for sharing your budget. For that amount, I can offer a smaller version of ' + proj + '.\n\nIt includes:\n' + bullets(now);
+      if (later.length) t += '\n\nI would move these to a second phase, so we can add them when the timing and budget are right:\n' + bullets(later);
+      t += '\n\nWant me to send you this option?';
+    } else {
+      t += 'I have been thinking about how to make ' + proj + ' work even better for you. At the same price, I can add:\n' + bullets(now);
+      if (later.length) t += '\n\nI would save these for a second phase, so we can pick them up later:\n' + bullets(later);
+      t += '\n\nDoes this sound good to you?';
+    }
+    return t;
+  }
+
+  function verdict(pv, pe) {
+    if (pv === 0 && pe === 0) return 'Nothing is left in this version yet. Pick at least one item to keep.';
+    if (state.mode === 'smaller') {
+      if (pv === 100 && pe === 100) return 'Nothing is being cut yet. Rate each item honestly and the tool will show you what can go.';
+      if (pe < pv) return 'The project gets smaller for you faster than it gets smaller for your client. That is the goal.';
+      return 'You are still keeping more work than value. Try moving one heavy item to phase two.';
+    }
+    if (pv > pe) return 'These additions give your client more than they cost you. Good trade.';
+    return 'These additions cost you more than they give your client. Pick fewer, or choose lighter ones.';
+  }
+
+  function copyText(t, btn, note) {
+    function done() {
+      note.textContent = 'Copied. Edit it before you send.';
+      setTimeout(function () { note.textContent = ''; }, 3000);
+    }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = t;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) { note.textContent = 'Select the message and press Ctrl+C.'; }
+      document.body.removeChild(ta);
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(t).then(done, fallback);
+        return;
+      }
+    } catch (e) { /* fall through */ }
+    fallback();
+  }
+
+  function renderResults() {
+    var box = $('results');
+    box.textContent = '';
+    var items = state.items.filter(function (i) { return i.name.trim(); });
+    if (!items.length) {
+      box.appendChild(el('div', { class: 'empty', text: 'Add your first item above and your results will show up here.' }));
+      return;
+    }
+
+    var T = TEXT[state.mode];
+    var g = { core: [], light: [], later: [], drop: [] };
+    var totV = 0, totE = 0, inV = 0, inE = 0;
+    items.forEach(function (it) {
+      var k = classify(it);
+      g[k].push(it);
+      totV += it.v; totE += it.e;
+      if (k === 'core' || k === 'light') { inV += it.v; inE += it.e; }
+    });
+    var pv = Math.round(inV / totV * 100);
+    var pe = Math.round(inE / totE * 100);
+
+    var vLabel = state.mode === 'smaller' ? 'Value your client keeps' : 'Value you give your client';
+    var eLabel = state.mode === 'smaller' ? 'Work you keep' : 'Work you take on';
+
+    function meter(label, pct, cls) {
+      var bar = el('div', { class: 'bar ' + cls, role: 'img', 'aria-label': label + ': ' + pct + ' percent' }, [el('span')]);
+      bar.firstChild.style.width = pct + '%';
+      return el('div', null, [el('div', { class: 'meter-label' }, [el('span', { text: label }), el('span', { text: pct + '%' })]), bar]);
+    }
+    box.appendChild(el('div', { class: 'meters' }, [meter(vLabel, pv, 'v'), meter(eLabel, pe, 'e')]));
+    box.appendChild(el('p', { class: 'verdict', text: verdict(pv, pe) }));
+    box.appendChild(el('p', { class: 'caption', text: 'Based on how you rated each item, out of everything you listed.' }));
+
+    ['core', 'light', 'later', 'drop'].forEach(function (k) {
+      if (!g[k].length) return;
+      var list = el('ul');
+      g[k].forEach(function (it) {
+        var tags = 'Client: ' + VAL[it.v - 1] + ' \u00B7 Work: ' + COST[it.e - 1];
+        if (state.mode === 'smaller' && it.must) tags += ' \u00B7 Must stay';
+        list.appendChild(el('li', null, [el('span', { class: 'nm', text: it.name.trim() }), el('span', { class: 'tags', text: tags })]));
+      });
+      var n = g[k].length;
+      box.appendChild(el('div', { class: 'group ' + k }, [
+        el('div', { class: 'group-head' }, [
+          el('span', { class: 'badge ' + k, text: T.groups[k][0] }),
+          el('span', { class: 'count', text: n + (n === 1 ? ' item' : ' items') })
+        ]),
+        el('p', { class: 'group-desc', text: T.groups[k][1] }),
+        list
+      ]));
+    });
+
+    if (!g.core.length && !g.light.length) {
+      box.appendChild(el('div', { class: 'empty', text: 'Every item is out right now. Mark at least one as something your client cares about, or tick Must stay.' }));
+      return;
+    }
+
+    var msgText = buildMessage(g);
+    var note = el('span', { class: 'caption', 'aria-live': 'polite' });
+    var btn = el('button', { type: 'button', class: 'btn', text: 'Copy message' });
+    btn.addEventListener('click', function () { copyText(msgText, btn, note); });
+    box.appendChild(el('h3', { class: 'msg-title', text: 'A message you can send' }));
+    box.appendChild(el('p', { class: 'msg', text: msgText }));
+    box.appendChild(el('div', { class: 'copyrow' }, [btn, note]));
+  }
+
+  /* ---------- mode ---------- */
+  function setMode(m) {
+    state.mode = m;
+    $('app').setAttribute('data-mode', m);
+    [].forEach.call(document.querySelectorAll('.mode'), function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-mode') === m));
+    });
+    $('s2t').textContent = TEXT[m].s2t;
+    $('s2h').textContent = TEXT[m].s2h;
+    $('s3t').textContent = TEXT[m].s3t;
+    renderResults();
+  }
+
+  /* ---------- wiring ---------- */
+  [].forEach.call(document.querySelectorAll('.mode'), function (b) {
+    b.addEventListener('click', function () { setMode(b.getAttribute('data-mode')); });
+  });
+
+  $('project').addEventListener('input', renderResults);
+  $('client').addEventListener('input', renderResults);
+
+  $('addform').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var inp = $('newitem');
+    var name = inp.value;
+    if (addItem(name, 2, 2, false)) {
+      inp.value = '';
+      renderItems();
+      renderResults();
+      say('Added ' + name.trim());
+    }
+    inp.focus();
+  });
+
+  var chips = $('chips');
+  chips.appendChild(el('span', { class: 'chips-label', text: 'Quick add:' }));
+  QUICK.forEach(function (label) {
+    var c = el('button', { type: 'button', class: 'chip', text: label });
+    c.addEventListener('click', function () {
+      addItem(label, 2, 2, false);
+      renderItems();
+      renderResults();
+      say('Added ' + label);
+    });
+    chips.appendChild(c);
+  });
+
+  $('example').addEventListener('click', function () {
+    state.items = [];
+    EXAMPLES[state.mode].forEach(function (r) { addItem(r[0], r[1], r[2], r[3]); });
+    renderItems();
+    renderResults();
+    say('Example loaded');
+  });
+
+  $('reset').addEventListener('click', function () {
+    state.items = [];
+    $('project').value = '';
+    $('client').value = '';
+    renderItems();
+    renderResults();
+    say('Started over');
+    $('newitem').focus();
+  });
+
+  renderItems();
+  renderResults();
+})();
+</script>
+</body>
+</html>
