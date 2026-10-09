@@ -180,7 +180,7 @@ footer a.btn:focus-visible,footer a.name:focus-visible{outline:3px solid var(--i
   <header>
     <p class="eyebrow">//your favorite tool</p>
     <h1>The Scope <em>Weigher</em></h1>
-    <p class="lede">When a client says the budget is smaller, the project gets smaller. Use this tool to decide what stays, what moves to a second phase, and what goes. You never touch your price.</p>
+    <p class="lede">The rule is: when a client says the budget is smaller, the project gets smaller. Use this tool to decide what stays in your scope, what moves to a second phase, and what goes. Repeat after Sabrina: you never touch your price.</p>
   </header>
 
   <section class="step" aria-labelledby="s1">
@@ -401,7 +401,7 @@ footer a.btn:focus-visible,footer a.name:focus-visible{outline:3px solid var(--i
     if (state.mode === 'smaller') {
       t += 'Thank you for sharing your budget. For that amount, I can offer a smaller version of ' + proj + '.\n\nIt includes:\n' + bullets(now);
       if (later.length) t += '\n\nI would move these to a second phase, so we can add them when the timing and budget are right:\n' + bullets(later);
-      t += '\n\nWant me to send you this option?';
+      t += '\n\nWant me to send you the contract for this option?';
     } else {
       t += 'I have been thinking about how to make ' + proj + ' work even better for you. At the same price, I can add:\n' + bullets(now);
       if (later.length) t += '\n\nI would save these for a second phase, so we can pick them up later:\n' + bullets(later);
