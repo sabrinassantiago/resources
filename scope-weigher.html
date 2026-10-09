@@ -157,8 +157,12 @@ input[type=text]:focus{border-color:var(--ink)}
   padding:16px;font-size:15px;margin:0 0 12px;overflow-wrap:anywhere;
 }
 .copyrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-footer{margin-top:30px;font-size:13px;color:var(--muted);text-align:center}
-footer strong{color:var(--ink)}
+footer{margin-top:34px;padding-top:26px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);text-align:center}
+footer p{margin:0 0 14px}
+footer a.name{color:var(--ink);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+footer a.name:hover{color:var(--red)}
+footer a.btn{display:inline-block;text-decoration:none;line-height:1.4}
+footer a.btn:focus-visible,footer a.name:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 
 @media (max-width:620px){
   .wrap{padding:30px 16px 56px}
@@ -222,7 +226,10 @@ footer strong{color:var(--ink)}
     <div id="results"></div>
   </section>
 
-  <footer>Made by <strong>Sabrina S. Santiago</strong> for Your Favorite Freelancer.</footer>
+  <footer>
+    <p>Made by <a class="name" href="https://www.linkedin.com/in/sabrss/" target="_blank" rel="noopener">Sabrina S. Santiago</a> for Your Favorite Freelancer. Click my name to find me on LinkedIn.</p>
+    <a class="btn" href="https://sabrinassantiago.myflodesk.com/newstools" target="_blank" rel="noopener">Get free tools like this</a>
+  </footer>
   <div class="sr" id="status" aria-live="polite"></div>
   <noscript><p>This tool needs JavaScript to work. Please turn it on and reload the page.</p></noscript>
 </main>
@@ -394,7 +401,7 @@ footer strong{color:var(--ink)}
     if (state.mode === 'smaller') {
       t += 'Thank you for sharing your budget. For that amount, I can offer a smaller version of ' + proj + '.\n\nIt includes:\n' + bullets(now);
       if (later.length) t += '\n\nI would move these to a second phase, so we can add them when the timing and budget are right:\n' + bullets(later);
-      t += '\n\nWant me to send you the contract for this option?';
+      t += '\n\nWant me to send you this option?';
     } else {
       t += 'I have been thinking about how to make ' + proj + ' work even better for you. At the same price, I can add:\n' + bullets(now);
       if (later.length) t += '\n\nI would save these for a second phase, so we can pick them up later:\n' + bullets(later);
